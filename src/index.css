@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* Minimal base tweaks for consistent look */
+:root {
+  color-scheme: light dark;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background-color: rgb(249 250 251); /* gray-50 */
+  color: rgb(17 24 39); /* gray-900 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
