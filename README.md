@@ -13,6 +13,14 @@ A modern React chat interface for Google's Agent Development Kit (ADK). Built wi
 - **Production Ready**: Error boundaries, proper error handling, and retry logic
 - **Accessible**: WCAG compliant with keyboard navigation support
 
+## Screenshots
+
+### Fullscreen Mode
+![ADK Client Web Component — Fullscreen](./docs/images/full-screen.png)
+
+### Widget Mode
+![ADK Client Web Component — Widget](./docs/images/widget.png)
+
 ## Prerequisites
 
 - Node.js 18+ (LTS recommended)
