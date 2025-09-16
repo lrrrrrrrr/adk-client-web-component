@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Settings, Minimize2, Maximize2, AlertCircle } from 'lucide-react';
 import { MessageList } from './ui/MessageList';

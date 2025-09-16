@@ -12,8 +12,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/adk-client.es.js",
       "require": "./dist/adk-client.umd.js"
-    },
-    "./dist/style.css": "./dist/adk-client-web-component.css"
+    }
   },
   "files": [
     "dist",
@@ -27,7 +26,14 @@
     "web-component",
     "react",
     "typescript",
-    "google-adk"
+    "google-adk",
+    "chatbot",
+    "agent",
+    "ui-component",
+    "frontend",
+    "javascript",
+    "es6",
+    "modern"
   ],
   "author": "Mykola Sleta <mykolasleta@gmail.com>",
   "license": "MIT",
@@ -41,12 +47,12 @@
   "homepage": "https://github.com/lrrrrrrrr/adk-client-web-component#readme",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && npm run build:clean && npm run build:lib && npm run build:standalone && npm run build:combine",
+    "build": "npm run build:clean && npm run build:lib && npm run build:standalone && npm run build:combine && npm run build:types",
     "build:clean": "rm -rf dist dist-lib dist-standalone",
-    "build:lib": "vite build --config vite.config.lib.ts",
-    "build:standalone": "vite build --config vite.config.standalone.ts",
+    "build:lib": "BUILD_MODE=lib vite build",
+    "build:standalone": "BUILD_MODE=standalone vite build",
     "build:combine": "mkdir -p dist && cp dist-lib/* dist/ && cp dist-standalone/* dist/ && cp -r examples dist/ && cp -r public/* dist/",
-    "build:types": "tsc --declaration --emitDeclarationOnly --outDir dist",
+    "build:types": "tsc --declaration --emitDeclarationOnly --outDir dist --skipLibCheck",
     "copy:examples": "cp -r examples dist/",
     "lint": "eslint .",
     "preview": "vite preview",

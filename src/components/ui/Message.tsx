@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import type { Message as MessageType } from '../../types';
 import { User, Bot } from 'lucide-react';

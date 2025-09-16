@@ -244,7 +244,7 @@ export class ADKApiService {
                 if (event && typeof event === 'object') {
                   onEvent(event);
                 }
-              } catch (e) {
+              } catch {
                 console.warn('Failed to parse SSE event:', data);
                 if (onError) {
                   onError(new Error('Invalid event data received'));

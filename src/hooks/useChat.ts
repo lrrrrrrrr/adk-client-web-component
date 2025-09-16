@@ -17,26 +17,29 @@ export function useChat() {
   const apiService = new ADKApiService(config.apiBaseUrl);
 
   // Helper to extract text from ADK events (streaming and non-streaming)
-  const extractText = (ev: any): string => {
+  const extractText = (ev: unknown): string => {
     // Expected schema sample:
     // { content: { parts: [{ text: '...' }], role: 'model' }, partial?: boolean, ... }
-    const parts = ev?.content?.parts;
+    const event = ev as Record<string, unknown>;
+    const parts = (event?.content as Record<string, unknown>)?.parts;
     if (Array.isArray(parts)) {
-      return parts.map((p) => p?.text ?? '').join('');
+      return parts.map((p) => (p as Record<string, unknown>)?.text ?? '').join('');
     }
     // Fallbacks for alternative shapes
-    if (typeof ev?.data?.content === 'string') return ev.data.content;
-    if (typeof ev?.content === 'string') return ev.content;
+    const dataContent = (event?.data as Record<string, unknown>)?.content;
+    if (typeof dataContent === 'string') return dataContent;
+    const content = event?.content;
+    if (typeof content === 'string') return content;
     return '';
   };
 
   // Initialize session
-  const { data: session, isLoading: isSessionLoading, error: sessionError } = useQuery({
+  const { data: session, isLoading: isSessionLoading, error: _sessionError } = useQuery({
     queryKey: ['session', config.appName, config.userId, config.sessionId],
     queryFn: async () => {
       try {
         return await apiService.getSession(config);
-      } catch (error) {
+      } catch {
         // If session doesn't exist, create it
         return await apiService.createSession(config);
       }
@@ -49,12 +52,12 @@ export function useChat() {
   useEffect(() => {
     if (session) {
       setConnected(true);
-    } else if (sessionError) {
-      console.error('Session initialization failed:', sessionError);
+    } else if (_sessionError) {
+      console.error('Session initialization failed:', _sessionError);
       setError('Failed to connect to ADK server');
       setConnected(false);
     }
-  }, [session, sessionError, setConnected, setError]);
+  }, [session, _sessionError, setConnected, setError]);
 
   // Send message mutation
   const sendMessageMutation = useMutation({

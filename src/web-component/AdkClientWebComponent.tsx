@@ -70,7 +70,7 @@ function AdkClientApp({
 }
 
 export class AdkClientWebComponent extends HTMLElement {
-  private root: any;
+  private root: ReturnType<typeof createRoot> | null = null;
   private mountPoint: HTMLDivElement;
 
   static get observedAttributes() {
@@ -107,7 +107,7 @@ export class AdkClientWebComponent extends HTMLElement {
       const style = document.createElement('style');
       style.textContent = css;
       this.shadowRoot!.appendChild(style);
-    } catch (error) {
+    } catch {
       // Fallback: try to find it relative to the page
       const styleLink = document.createElement('link');
       styleLink.rel = 'stylesheet';

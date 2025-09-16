@@ -33,13 +33,3 @@ export const env = {
 
 export const isDevelopment = import.meta.env.DEV;
 export const isProduction = import.meta.env.PROD;
-
-// Validate all required environment variables on startup
-if (isProduction) {
-  const requiredVars = ['ADK_API_URL', 'ADK_APP_NAME', 'ADK_USER_ID', 'ADK_SESSION_ID'];
-  for (const varName of requiredVars) {
-    if (!env[varName as keyof typeof env]) {
-      throw new Error(`Missing required environment variable: VITE_${varName}`);
-    }
-  }
-}

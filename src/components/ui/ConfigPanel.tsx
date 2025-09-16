@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Settings, X, Check, AlertCircle } from 'lucide-react';
 import { useChatStore } from '../../store/chatStore';
