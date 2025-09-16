@@ -167,7 +167,7 @@ You can use the component directly from CDN without any build process:
 </adk-client>
 
 <script type="module">
-  import 'https://unpkg.com/adk-client-web-component/dist/adk-client.es.js';
+  import 'https://unpkg.com/adk-client-web-component/dist/adk-client-standalone.js';
 </script>
 </body>
 </html>
