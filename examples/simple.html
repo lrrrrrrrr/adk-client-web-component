@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADK Client - Simple Usage</title>
+  <link rel="stylesheet" href="../adk-client-web-component.css">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    
+    .demo {
+      margin: 30px 0;
+      padding: 20px;
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      min-height: 400px;
+    }
+    
+    h1, h2 { color: #333; }
+    
+    .note {
+      background: #e3f2fd;
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      color: #1565c0;
+    }
+  </style>
+</head>
+<body>
+  <h1>ADK Client Web Component - Simple Usage</h1>
+  
+  <div class="note">
+    <strong>Simple!</strong> Just include one script tag and use the web component. 
+    No React imports, no configuration needed.
+  </div>
+
+  <div class="demo">
+    <adk-client 
+      api-url="http://localhost:8000"
+      app-name="my_agent"
+      mode="widget">
+    </adk-client>
+  </div>
+  <!-- Single script tag - that's it! -->
+  <script src="../adk-client-standalone.js"></script>
+</body>
+</html>
