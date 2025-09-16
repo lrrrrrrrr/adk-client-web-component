@@ -1,7 +1,7 @@
 {
   "name": "adk-client-web-component",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "description": "A modern React chat interface for Google's Agent Development Kit (ADK) as a reusable web component",
   "main": "dist/adk-client.umd.js",
