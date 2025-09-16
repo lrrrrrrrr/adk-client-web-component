@@ -10,8 +10,8 @@ export interface Session {
   id: string;
   appName: string;
   userId: string;
-  state: Record<string, any>;
-  events: any[];
+  state: Record<string, unknown>;
+  events: unknown[];
   lastUpdateTime: number;
 }
 
@@ -50,6 +50,6 @@ export type ResponseMode = 'stream' | 'standard';
 
 export interface ADKEvent {
   type: string;
-  data: any;
+  data: unknown;
   timestamp: number;
 }

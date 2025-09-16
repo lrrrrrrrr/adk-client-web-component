@@ -31,10 +31,13 @@ export function ChatWindow({ className }: ChatWindowProps) {
   return (
     <motion.div
       layout
+      role="region"
+      aria-label="Chat window"
+      aria-live="polite"
       className={clsx(
         'bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-100',
-        isFullscreen 
-          ? 'fixed inset-4 z-30' 
+        isFullscreen
+          ? 'fixed inset-4 z-30'
           : 'w-96 h-[600px]',
         className
       )}

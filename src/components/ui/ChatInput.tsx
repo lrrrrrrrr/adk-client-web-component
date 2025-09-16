@@ -58,6 +58,8 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
             placeholder="Type your message..."
             disabled={isDisabled}
             rows={1}
+            aria-label="Message input"
+            aria-describedby="input-hint"
             className={clsx(
               'w-full resize-none rounded-2xl border-0 bg-gray-100 px-6 py-4 pr-14 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:shadow-lg disabled:opacity-50 transition-all duration-200',
               'min-h-[52px] max-h-32 text-gray-900 placeholder-gray-500'
@@ -81,8 +83,11 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
           </button>
         </div>
       </form>
-      <p className="text-xs text-gray-400 mt-3 text-center font-medium">
+      <p id="input-hint" className="text-xs text-gray-400 mt-3 text-center font-medium">
         Press <kbd className="px-1.5 py-0.5 bg-gray-200 rounded text-gray-600">Enter</kbd> to send, <kbd className="px-1.5 py-0.5 bg-gray-200 rounded text-gray-600">Shift+Enter</kbd> for new line
+      </p>
+      <p className="sr-only">
+        Press Enter to send message, Shift+Enter for new line
       </p>
     </div>
   );
