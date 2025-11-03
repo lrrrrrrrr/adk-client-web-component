@@ -3,42 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ADK Client Examples</title>
+  <title>ADK Client Web Component</title>
   <style>
     body {
       font-family: system-ui, -apple-system, sans-serif;
       max-width: 800px;
       margin: 50px auto;
       padding: 20px;
+      line-height: 1.6;
     }
     h1 { color: #333; }
-    .examples-list {
-      list-style: none;
-      padding: 0;
+    h2 { color: #555; margin-top: 30px; }
+    code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 3px;
     }
-    .examples-list li {
-      margin: 15px 0;
+    .info {
+      background: #e3f2fd;
+      padding: 15px;
+      border-left: 4px solid #2196f3;
+      margin: 20px 0;
     }
-    .examples-list a {
-      display: inline-block;
-      padding: 10px 20px;
-      background: #0066cc;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: background 0.3s;
-    }
-    .examples-list a:hover {
-      background: #0052a3;
+    a {
+      color: #0066cc;
     }
   </style>
 </head>
 <body>
-  <h1>ADK Client Web Component Examples</h1>
-  <p>Choose an example to view:</p>
-  <ul class="examples-list">
-    <li><a href="/examples/simple.html">Simple Usage (One Script Tag)</a></li>
-    <li><a href="/examples/example.html">Advanced Demo (ES Modules)</a></li>
+  <h1>🎉 ADK Client Web Component v0.0.4</h1>
+  
+  <div class="info">
+    <strong>✨ New in v0.0.4:</strong> Shadow DOM with embedded Tailwind CSS - no external CSS file needed!
+  </div>
+
+  <h2>📦 Package Built Successfully</h2>
+  <p>This folder contains the production build of the ADK Client Web Component.</p>
+  
+  <h2>📚 Integration Examples</h2>
+  <p>Complete working examples are available in the <strong>demo/</strong> folder on GitHub:</p>
+  <ul>
+    <li><strong>Method 1:</strong> Local npm installation</li>
+    <li><strong>Method 2:</strong> CDN usage (zero installation)</li>
+    <li><strong>Method 3:</strong> React integration</li>
+    <li><strong>Method 4:</strong> Programmatic control</li>
   </ul>
+  
+  <h2>🚀 Quick Start</h2>
+  <p>CDN usage (easiest):</p>
+  <pre><code>&lt;adk-client
+  api-url="http://localhost:8000"
+  app-name="my_agent"&gt;
+&lt;/adk-client&gt;
+
+&lt;script type="module"&gt;
+  import 'https://unpkg.com/adk-client-web-component/dist/adk-client-standalone.js';
+&lt;/script&gt;</code></pre>
+
+  <h2>📖 Documentation</h2>
+  <p>
+    <a href="https://github.com/lrrrrrrrr/adk-client-web-component#readme" target="_blank">View README on GitHub →</a>
+  </p>
+  
+  <p>
+    <a href="https://github.com/lrrrrrrrr/adk-client-web-component/tree/main/demo" target="_blank">View Live Demos on GitHub →</a>
+  </p>
 </body>
 </html>
