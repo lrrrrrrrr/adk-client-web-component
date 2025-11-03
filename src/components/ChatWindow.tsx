@@ -23,6 +23,14 @@ export function ChatWindow({ className }: ChatWindowProps) {
     setMode(isFullscreen ? 'widget' : 'fullscreen');
   };
 
+  const handleClose = () => {
+    // If in fullscreen, switch to widget mode first
+    if (isFullscreen) {
+      setMode('widget');
+    }
+    setIsOpen(false);
+  };
+
   const handleSendMessage = (message: string) => {
     if (error) setError(null);
     sendMessage(message);
@@ -88,7 +96,7 @@ export function ChatWindow({ className }: ChatWindowProps) {
             </button>
             
             <button
-              onClick={() => setIsOpen(false)}
+              onClick={handleClose}
               className="p-3 hover:bg-white/10 rounded-xl transition-all duration-200 backdrop-blur-sm"
               title="Close"
             >

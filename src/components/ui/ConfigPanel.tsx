@@ -86,7 +86,7 @@ export function ConfigPanel({ isOpen, onClose }: ConfigPanelProps) {
               <section className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
                 <h3 className="text-sm font-semibold text-gray-900 mb-3">API</h3>
                 <div className="space-y-2">
-                  <label className="block text-xs font-medium text-gray-600">API Base URL</label>
+                  <label className="block text-xs font-medium text-gray-600 mb-2">API Base URL</label>
                   <input
                     type="url"
                     value={formData.apiBaseUrl}
@@ -104,7 +104,7 @@ export function ConfigPanel({ isOpen, onClose }: ConfigPanelProps) {
                     {apiUrlInvalid ? (
                       <p className="text-xs text-red-600 flex items-center gap-1"><AlertCircle size={14} /> Invalid URL</p>
                     ) : (
-                      <p className="text-xs text-gray-500">ADK API server endpoint</p>
+                      <p className="text-xs text-gray-500 mt-1">ADK API server endpoint</p>
                     )}
                   </div>
                 </div>
@@ -134,7 +134,7 @@ export function ConfigPanel({ isOpen, onClose }: ConfigPanelProps) {
                         S
                       </span>
                     </div>
-                    <p className="mt-1 text-xs text-gray-500">Tokens appear live (SSE).</p>
+                    <p className="mt-2 text-xs text-gray-500">Tokens appear live (SSE).</p>
                   </button>
                   <button
                     type="button"
@@ -155,7 +155,7 @@ export function ConfigPanel({ isOpen, onClose }: ConfigPanelProps) {
                         F
                       </span>
                     </div>
-                    <p className="mt-1 text-xs text-gray-500">Full response after processing.</p>
+                    <p className="mt-2 text-xs text-gray-500">Full response after processing.</p>
                   </button>
                 </div>
               </section>
@@ -165,7 +165,7 @@ export function ConfigPanel({ isOpen, onClose }: ConfigPanelProps) {
                 <h3 className="text-sm font-semibold text-gray-900 mb-3">Identity</h3>
                 <div className="grid grid-cols-1 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-gray-600">App Name</label>
+                    <label className="block text-xs font-medium text-gray-600 mb-2">App Name</label>
                     <input
                       type="text"
                       value={formData.appName}
@@ -177,7 +177,7 @@ export function ConfigPanel({ isOpen, onClose }: ConfigPanelProps) {
                   </div>
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
-                      <label className="block text-xs font-medium text-gray-600">User ID</label>
+                      <label className="block text-xs font-medium text-gray-600 mb-2">User ID</label>
                       <input
                         type="text"
                         value={formData.userId}
@@ -188,7 +188,7 @@ export function ConfigPanel({ isOpen, onClose }: ConfigPanelProps) {
                       <p className="text-xs text-gray-500 mt-1">Unique identifier for the user session</p>
                     </div>
                     <div>
-                      <label className="block text-xs font-medium text-gray-600">Session ID</label>
+                      <label className="block text-xs font-medium text-gray-600 mb-2">Session ID</label>
                       <input
                         type="text"
                         value={formData.sessionId}
