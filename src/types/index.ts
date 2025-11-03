@@ -32,6 +32,7 @@ export interface ChatState {
   error: string | null;
   mode: ChatMode;
   isConnected: boolean;
+  isOpen: boolean;
   config: ChatConfig;
 }
 

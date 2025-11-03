@@ -12,6 +12,7 @@ interface ChatStore extends ChatState {
   setError: (error: string | null) => void;
   setMode: (mode: ChatState['mode']) => void;
   setConnected: (connected: boolean) => void;
+  setIsOpen: (isOpen: boolean) => void;
   updateConfig: (config: Partial<ChatConfig>) => void;
   clearMessages: () => void;
   reset: () => void;
@@ -32,6 +33,7 @@ const initialState: ChatState = {
   error: null,
   mode: 'fullscreen',
   isConnected: false,
+  isOpen: true,
   config: defaultConfig,
 };
 
@@ -65,6 +67,7 @@ export const useChatStore = create<ChatStore>()(
       setError: (error) => set({ error }),
       setMode: (mode) => set({ mode }),
       setConnected: (connected) => set({ isConnected: connected }),
+      setIsOpen: (isOpen) => set({ isOpen }),
 
       updateConfig: (configUpdates) => {
         set((state) => ({

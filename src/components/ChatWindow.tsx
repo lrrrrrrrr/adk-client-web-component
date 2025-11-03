@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Settings, Minimize2, Maximize2, AlertCircle } from 'lucide-react';
+import { Settings, Minimize2, Maximize2, AlertCircle, X } from 'lucide-react';
 import { MessageList } from './ui/MessageList';
 import { ChatInput } from './ui/ChatInput';
 import { ConfigPanel } from './ui/ConfigPanel';
@@ -14,7 +14,7 @@ interface ChatWindowProps {
 
 export function ChatWindow({ className }: ChatWindowProps) {
   const [isConfigOpen, setIsConfigOpen] = useState(false);
-  const { mode, error, setMode, setError } = useChatStore();
+  const { mode, error, setMode, setError, setIsOpen } = useChatStore();
   const { sendMessage, isConnected, isSessionLoading } = useChat();
 
   const isFullscreen = mode === 'fullscreen';
@@ -85,6 +85,14 @@ export function ChatWindow({ className }: ChatWindowProps) {
               title={isFullscreen ? 'Minimize' : 'Maximize'}
             >
               {isFullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
+            </button>
+            
+            <button
+              onClick={() => setIsOpen(false)}
+              className="p-3 hover:bg-white/10 rounded-xl transition-all duration-200 backdrop-blur-sm"
+              title="Close"
+            >
+              <X size={20} />
             </button>
           </div>
         </div>
