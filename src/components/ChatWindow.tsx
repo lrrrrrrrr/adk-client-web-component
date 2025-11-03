@@ -78,11 +78,12 @@ export function ChatWindow({ className }: ChatWindowProps) {
             </div>
           </div>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 relative z-10">
             <button
               onClick={() => setIsConfigOpen(true)}
               className="p-3 hover:bg-white/10 rounded-xl transition-all duration-200 backdrop-blur-sm"
               title="Settings"
+              type="button"
             >
               <Settings size={20} />
             </button>
@@ -91,6 +92,7 @@ export function ChatWindow({ className }: ChatWindowProps) {
               onClick={toggleMode}
               className="p-3 hover:bg-white/10 rounded-xl transition-all duration-200 backdrop-blur-sm"
               title={isFullscreen ? 'Minimize' : 'Maximize'}
+              type="button"
             >
               {isFullscreen ? <Minimize2 size={20} /> : <Maximize2 size={20} />}
             </button>
@@ -99,6 +101,7 @@ export function ChatWindow({ className }: ChatWindowProps) {
               onClick={handleClose}
               className="p-3 hover:bg-white/10 rounded-xl transition-all duration-200 backdrop-blur-sm"
               title="Close"
+              type="button"
             >
               <X size={20} />
             </button>
