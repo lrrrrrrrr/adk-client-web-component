@@ -155,7 +155,7 @@ npm run serve
 ## CDN Demos (Method 2 & 4)
 
 These demos use the published npm package from CDN (unpkg.com):
-- Method 2 uses version 0.0.3 (latest published)
+- Method 2 uses version 0.0.4 (latest published)
 - Method 4 uses latest version automatically
 
 They don't need the local build and work independently.

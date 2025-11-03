@@ -100,7 +100,7 @@ Perfect for quick prototypes and static sites:
 </adk-client>
 
 <script type="module">
-  import 'https://unpkg.com/adk-client-web-component@0.0.3/dist/adk-client-standalone.js';
+  import 'https://unpkg.com/adk-client-web-component@0.0.4/dist/adk-client-standalone.js';
 </script>
 ```
 
