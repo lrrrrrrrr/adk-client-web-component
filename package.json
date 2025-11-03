@@ -1,7 +1,7 @@
 {
   "name": "adk-client-web-component",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "description": "A modern React chat interface for Google's Agent Development Kit (ADK) as a reusable web component",
   "main": "dist/adk-client.umd.js",
@@ -47,17 +47,16 @@
   "homepage": "https://github.com/lrrrrrrrr/adk-client-web-component#readme",
   "scripts": {
     "dev": "vite",
-    "build": "npm run build:clean && npm run build:lib && npm run build:standalone && npm run build:combine && npm run build:types",
+    "build": "npm run build:clean && npm run build:lib && npm run build:standalone && npm run build:embed-styles && npm run build:combine && npm run build:types",
     "build:clean": "rm -rf dist dist-lib dist-standalone",
     "build:lib": "BUILD_MODE=lib vite build",
+    "build:embed-styles": "node scripts/embed-styles.js",
     "build:standalone": "BUILD_MODE=standalone vite build",
-    "build:combine": "mkdir -p dist && cp dist-lib/* dist/ && cp dist-standalone/* dist/ && cp -r examples dist/ && cp -r public/* dist/",
+    "build:combine": "mkdir -p dist && cp dist-lib/* dist/ && cp dist-standalone/* dist/ && cp -r public/* dist/",
     "build:types": "tsc --declaration --emitDeclarationOnly --outDir dist --skipLibCheck",
-    "copy:examples": "cp -r examples dist/",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepublishOnly": "npm run build",
-    "serve:examples": "npm run build && npm run preview"
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.7",

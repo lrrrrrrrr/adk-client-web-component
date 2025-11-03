@@ -1,0 +1,17 @@
+{
+  "name": "adk-client-local-demo",
+  "version": "1.0.0",
+  "description": "Local installation demo for ADK Client Web Component",
+  "private": true,
+  "scripts": {
+    "install:package": "npm install adk-client-web-component",
+    "serve": "npx serve",
+    "start": "npm run install:package && npm run serve"
+  },
+  "dependencies": {
+    "adk-client-web-component": "file:../../"
+  },
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}

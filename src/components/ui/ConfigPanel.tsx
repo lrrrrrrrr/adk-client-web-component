@@ -57,9 +57,9 @@ export function ConfigPanel({ isOpen, onClose }: ConfigPanelProps) {
             initial={{ opacity: 0, x: 300 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 300 }}
-            className="fixed right-0 top-0 h-full w-[420px] bg-white shadow-2xl z-50 flex flex-col border-l border-gray-100 rounded-l-2xl overflow-hidden"
+            className="fixed right-0 top-0 h-full w-[420px] bg-white shadow-2xl z-50 flex flex-col border-l border-gray-100 rounded-l-2xl overflow-hidden adk-config"
           >
-            <div className="relative px-5 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-600 via-blue-700 to-purple-700 text-white">
+            <div className="relative px-5 py-4 border-b border-gray-100 bg-gradient-to-r from-blue-600 via-blue-700 to-purple-700 text-white adk-config-header">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20" />
               <div className="relative flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -81,7 +81,7 @@ export function ConfigPanel({ isOpen, onClose }: ConfigPanelProps) {
               </div>
             </div>
 
-            <div className="flex-1 p-5 space-y-6 overflow-y-auto bg-gray-50/60">
+            <div className="flex-1 p-5 space-y-6 overflow-y-auto bg-gray-50/60 adk-config-body">
               {/* API Section */}
               <section className="bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
                 <h3 className="text-sm font-semibold text-gray-900 mb-3">API</h3>
@@ -215,7 +215,7 @@ export function ConfigPanel({ isOpen, onClose }: ConfigPanelProps) {
               )}
             </div>
 
-            <div className="p-4 border-t border-gray-100 bg-white">
+            <div className="p-4 border-t border-gray-100 bg-white adk-config-footer">
               <div className="flex gap-2">
                 <button
                   onClick={handleSave}

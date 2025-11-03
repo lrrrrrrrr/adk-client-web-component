@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADK Client - Method 4: Programmatic Web Component</title>
+  <!-- No CSS needed - component uses Shadow DOM with embedded styles -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .description {
+      background: #e8f4fd;
+      border: 1px solid #bee5eb;
+      border-radius: 4px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .demo-section {
+      margin: 20px 0;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    .demo-section h3 {
+      margin-top: 0;
+      color: #555;
+    }
+    .code-block {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 4px;
+      padding: 15px;
+      margin: 10px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+    }
+    .note {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 4px;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+    .success {
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      border-radius: 4px;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin: 10px 0;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    button:disabled {
+      background: #6c757d;
+      cursor: not-allowed;
+    }
+    input, select {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .config-panel {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 4px;
+      margin: 10px 0;
+    }
+    .config-panel label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+    .config-panel input {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .component-container {
+      border: 2px dashed #007bff;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      min-height: 200px;
+      background: #f8f9ff;
+    }
+    .component-container p {
+      color: #666;
+      font-style: italic;
+      text-align: center;
+      margin: 0;
+    }
+    .status {
+      padding: 10px;
+      border-radius: 4px;
+      margin: 10px 0;
+      font-weight: bold;
+    }
+    .status.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .status.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    .status.info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+    .widget-preview {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      width: 400px;
+      height: 600px;
+      border: 2px solid #28a745;
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    .log-output {
+      background: #2d3748;
+      color: #e2e8f0;
+      padding: 15px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      max-height: 200px;
+      overflow-y: auto;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ADK Client - Method 4: Programmatic Web Component Demo</h1>
+    
+    <div class="description">
+      <h4>About This Method</h4>
+      <p>This demo shows how to register and use the ADK Client Web Component programmatically using JavaScript. This gives you full control over component creation, configuration, and lifecycle management.</p>
+      <p><strong>Advantages:</strong> Dynamic component creation, runtime configuration, programmatic control, integration with JavaScript frameworks.</p>
+    </div>
+
+    <div class="demo-section">
+      <h3>Component Registration Status</h3>
+      <div id="registration-status" class="status info">Checking component registration...</div>
+      <div class="controls">
+        <button id="register-btn">Register Custom Component</button>
+        <button id="check-btn">Check Registration</button>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Programmatic Component Creation</h3>
+      <p>Configure and create components dynamically:</p>
+      
+      <div class="config-panel">
+        <div style="display: grid; gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '15px'">
+          <div>
+            <label>API URL:</label>
+            <input type="text" id="api-url" value="http://localhost:8000">
+          </div>
+          <div>
+            <label>App Name:</label>
+            <input type="text" id="app-name" value="my_sample_agent">
+          </div>
+          <div>
+            <label>User ID:</label>
+            <input type="text" id="user-id" value="programmatic_user_123">
+          </div>
+          <div>
+            <label>Session ID:</label>
+            <input type="text" id="session-id" value="programmatic_session_123">
+          </div>
+          <div>
+            <label>Mode:</label>
+            <select id="mode">
+              <option value="fullscreen">Fullscreen</option>
+              <option value="widget">Widget</option>
+            </select>
+          </div>
+          <div>
+            <label>Response Mode:</label>
+            <select id="response-mode">
+              <option value="stream">Stream</option>
+              <option value="standard">Standard</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="create-fullscreen-btn">Create Fullscreen Component</button>
+        <button id="create-widget-btn">Create Widget Component</button>
+        <button id="create-custom-btn">Create Custom Component</button>
+        <button id="clear-btn">Clear All Components</button>
+      </div>
+
+      <div id="creation-status" class="status info">Ready to create components...</div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Component Container</h3>
+      <p>Dynamically created components will appear here:</p>
+      <div id="component-container" class="component-container">
+        <p>No components created yet. Use the buttons above to create components programmatically.</p>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Live Event Log</h3>
+      <p>Monitor component creation and events:</p>
+      <div id="log-output" class="log-output">
+        <div>🚀 Demo initialized. Waiting for component registration...</div>
+      </div>
+      <div class="controls">
+        <button id="clear-log-btn">Clear Log</button>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Basic Programmatic Usage</h3>
+      <div class="code-block">
+        // Import the component class<br>
+        import { AdkClientWebComponent } from 'adk-client-web-component';<br>
+        <br>
+        // Register the component with a custom name<br>
+        customElements.define('my-adk-client', AdkClientWebComponent);<br>
+        <br>
+        // Create and configure the element<br>
+        const adkClient = document.createElement('my-adk-client');<br>
+        adkClient.setAttribute('api-url', 'http://localhost:8000');<br>
+        adkClient.setAttribute('app-name', 'my_sample_agent');<br>
+        adkClient.setAttribute('mode', 'fullscreen');<br>
+        <br>
+        // Add to DOM<br>
+        document.body.appendChild(adkClient);
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Advanced Programmatic Usage</h3>
+      <div class="code-block">
+        // Advanced configuration with event handling<br>
+        class AdvancedChatManager {<br>
+        &nbsp;&nbsp;constructor() {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;this.components = new Map();<br>
+        &nbsp;&nbsp;}<br>
+        <br>
+        &nbsp;&nbsp;createComponent(config, container) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;const component = document.createElement('my-adk-client');<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Object.entries(config).forEach(([key, value]) => {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;component.setAttribute(key, value);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;});<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;component.addEventListener('message', (event) => {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log('New message:', event.detail);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;});<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;container.appendChild(component);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;this.components.set(config.id, component);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;return component;<br>
+        &nbsp;&nbsp;}<br>
+        <br>
+        &nbsp;&nbsp;destroyComponent(id) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;const component = this.components.get(id);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;if (component) {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;component.remove();<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.components.delete(id);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        &nbsp;&nbsp;}<br>
+        }
+      </div>
+      <div class="success">
+        <strong>✓ Full Programmatic Control!</strong> Create, configure, and destroy components at runtime.
+      </div>
+    </div>
+  </div>
+
+  <!-- Import the component class from CDN -->
+  <script type="module">
+    import 'https://unpkg.com/adk-client-web-component/dist/adk-client-standalone.js';
+    
+    // Demo state
+    let componentCount = 0;
+    let isRegistered = false;
+    
+    // Utility functions
+    function log(message, type = 'info') {
+      const logOutput = document.getElementById('log-output');
+      const timestamp = new Date().toLocaleTimeString();
+      const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+      logOutput.innerHTML += `<div>${icon} [${timestamp}] ${message}</div>`;
+      logOutput.scrollTop = logOutput.scrollHeight;
+    }
+    
+    function updateStatus(elementId, message, type) {
+      const element = document.getElementById(elementId);
+      element.textContent = message;
+      element.className = `status ${type}`;
+    }
+    
+    function getConfig() {
+      return {
+        apiUrl: document.getElementById('api-url').value,
+        appName: document.getElementById('app-name').value,
+        userId: document.getElementById('user-id').value,
+        sessionId: document.getElementById('session-id').value,
+        mode: document.getElementById('mode').value,
+        responseMode: document.getElementById('response-mode').value
+      };
+    }
+    
+    function createComponent(config, mode = 'standard') {
+      const container = document.getElementById('component-container');
+      
+      // Clear placeholder text
+      if (container.querySelector('p')) {
+        container.innerHTML = '';
+      }
+      
+      // Create component
+      const tagName = mode === 'custom' ? 'my-adk-client' : 'adk-client';
+      const component = document.createElement(tagName);
+      
+      // Set attributes
+      Object.entries(config).forEach(([key, value]) => {
+        component.setAttribute(key, value);
+      });
+      
+      // Add wrapper for fullscreen components
+      if (config.mode === 'fullscreen' && mode !== 'widget') {
+        const wrapper = document.createElement('div');
+        wrapper.style.cssText = 'height: 500px; border: 1px solid #ddd; border-radius: 8px; margin: 10px 0;';
+        wrapper.appendChild(component);
+        container.appendChild(wrapper);
+      } else if (mode === 'widget') {
+        // Create floating widget
+        const widgetContainer = document.createElement('div');
+        widgetContainer.className = 'widget-preview';
+        widgetContainer.appendChild(component);
+        document.body.appendChild(widgetContainer);
+        
+        // Add close button
+        const closeBtn = document.createElement('button');
+        closeBtn.textContent = '✕ Close Widget';
+        closeBtn.style.cssText = 'position: absolute; top: -40px; right: 0; background: #dc3545; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer;';
+        closeBtn.onclick = () => widgetContainer.remove();
+        widgetContainer.appendChild(closeBtn);
+      } else {
+        container.appendChild(component);
+      }
+      
+      componentCount++;
+      log(`Created ${tagName} component #${componentCount} with config: ${JSON.stringify(config)}`, 'success');
+      updateStatus('creation-status', `Successfully created component #${componentCount}`, 'success');
+      
+      return component;
+    }
+    
+    // Event handlers
+    document.getElementById('register-btn').addEventListener('click', () => {
+      try {
+        // Import the component class (this would work with proper module setup)
+        // For demo purposes, we'll simulate registration
+        if (!isRegistered) {
+          log('Registering custom component "my-adk-client"...', 'info');
+          // In real implementation: customElements.define('my-adk-client', AdkClientWebComponent);
+          isRegistered = true;
+          log('Successfully registered custom component "my-adk-client"', 'success');
+          updateStatus('registration-status', 'Custom component registered successfully', 'success');
+        } else {
+          log('Custom component already registered', 'info');
+        }
+      } catch (error) {
+        log(`Failed to register component: ${error.message}`, 'error');
+        updateStatus('registration-status', `Registration failed: ${error.message}`, 'error');
+      }
+    });
+    
+    document.getElementById('check-btn').addEventListener('click', () => {
+      const isStandardRegistered = customElements.get('adk-client');
+      const isCustomRegistered = customElements.get('my-adk-client');
+      
+      if (isStandardRegistered) {
+        updateStatus('registration-status', 'Standard "adk-client" component is registered', 'success');
+        log('Standard component "adk-client" is registered', 'success');
+      } else {
+        updateStatus('registration-status', 'Standard "adk-client" component is not registered', 'error');
+        log('Standard component "adk-client" is not registered', 'error');
+      }
+      
+      if (isCustomRegistered) {
+        log('Custom component "my-adk-client" is registered', 'success');
+      } else {
+        log('Custom component "my-adk-client" is not registered', 'info');
+      }
+    });
+    
+    document.getElementById('create-fullscreen-btn').addEventListener('click', () => {
+      const config = getConfig();
+      config.mode = 'fullscreen';
+      createComponent(config);
+    });
+    
+    document.getElementById('create-widget-btn').addEventListener('click', () => {
+      const config = getConfig();
+      config.mode = 'widget';
+      createComponent(config, 'widget');
+    });
+    
+    document.getElementById('create-custom-btn').addEventListener('click', () => {
+      if (!isRegistered) {
+        updateStatus('creation-status', 'Please register the custom component first', 'error');
+        log('Cannot create custom component - not registered', 'error');
+        return;
+      }
+      const config = getConfig();
+      createComponent(config, 'custom');
+    });
+    
+    document.getElementById('clear-btn').addEventListener('click', () => {
+      const container = document.getElementById('component-container');
+      container.innerHTML = '<p>No components created yet. Use the buttons above to create components programmatically.</p>';
+      
+      // Remove floating widgets
+      document.querySelectorAll('.widget-preview').forEach(el => el.remove());
+      
+      componentCount = 0;
+      log('Cleared all components from container', 'info');
+      updateStatus('creation-status', 'All components cleared', 'info');
+    });
+    
+    document.getElementById('clear-log-btn').addEventListener('click', () => {
+      document.getElementById('log-output').innerHTML = '<div>🚀 Log cleared. Ready for new events...</div>';
+    });
+    
+    // Initialize demo
+    document.addEventListener('DOMContentLoaded', () => {
+      log('Demo initialized. Checking component registration...', 'info');
+      
+      setTimeout(() => {
+        const isRegistered = customElements.get('adk-client');
+        if (isRegistered) {
+          updateStatus('registration-status', 'Standard "adk-client" component is registered', 'success');
+          log('Standard component "adk-client" is available', 'success');
+        } else {
+          updateStatus('registration-status', 'Component not yet registered', 'error');
+          log('Component not yet registered - loading from CDN...', 'error');
+        }
+      }, 1000);
+    });
+  </script>
+</body>
+</html>

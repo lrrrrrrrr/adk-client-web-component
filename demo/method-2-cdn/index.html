@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADK Client - Method 2: CDN Usage</title>
+  <!-- No CSS needed - component uses Shadow DOM with embedded styles -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .description {
+      background: #e8f4fd;
+      border: 1px solid #bee5eb;
+      border-radius: 4px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .demo-section {
+      margin: 20px 0;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    .demo-section h3 {
+      margin-top: 0;
+      color: #555;
+    }
+    .code-block {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 4px;
+      padding: 15px;
+      margin: 10px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+    }
+    .note {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 4px;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+    .success {
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      border-radius: 4px;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+    /* Position the widget */
+    adk-client[mode="widget"] {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      width: 400px;
+      height: 600px;
+    }
+    .cdn-status {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+    .cdn-success {
+      background: #28a745;
+      color: white;
+    }
+    .cdn-error {
+      background: #dc3545;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ADK Client - Method 2: CDN Usage Demo <span id="cdn-status" class="cdn-status">Loading...</span></h1>
+    
+    <div class="description">
+      <h4>About This Method</h4>
+      <p>This demo shows how to use the ADK Client Web Component directly from CDN without any npm installation. The component is loaded from unpkg.com using full URLs.</p>
+      <p><strong>Advantages:</strong> No installation required, works with any static hosting, easy to integrate into existing websites.</p>
+    </div>
+
+    <div class="demo-section">
+      <h3>CDN Loading Status</h3>
+      <p id="loading-status">Checking CDN availability...</p>
+      <div class="note">
+        <strong>Note:</strong> This demo loads the component from <code>https://unpkg.com/adk-client-web-component/</code>. If you're reading this, the CDN loading was successful!
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Widget Mode Demo</h3>
+      <p>The chat widget appears in the bottom-right corner of this page. Click on it to open the chat interface.</p>
+      <div class="code-block">
+        &lt;!-- Include the CSS from CDN --&gt;<br>
+        &lt;link rel="stylesheet" href="https://unpkg.com/adk-client-web-component/dist/adk-client-web-component.css"&gt;<br>
+        <br>
+        &lt;!-- Web component with configuration attributes --&gt;<br>
+        &lt;adk-client<br>
+        &nbsp;&nbsp;api-url="http://localhost:8000"<br>
+        &nbsp;&nbsp;app-name="my_sample_agent"<br>
+        &nbsp;&nbsp;mode="widget"&gt;<br>
+        &lt;/adk-client&gt;<br>
+        <br>
+        &lt;!-- Import as ES module from CDN --&gt;<br>
+        &lt;script type="module"&gt;<br>
+        &nbsp;&nbsp;import 'https://unpkg.com/adk-client-web-component/dist/adk-client-standalone.js';<br>
+        &lt;/script&gt;
+      </div>
+      <div class="success">
+        <strong>✓ No installation required!</strong> This works with any static hosting provider.
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Fullscreen Mode Demo</h3>
+      <p>Below is a fullscreen version of the chat interface embedded directly in the page:</p>
+      <div class="code-block">
+        &lt;adk-client<br>
+        &nbsp;&nbsp;api-url="http://localhost:8000"<br>
+        &nbsp;&nbsp;app-name="my_sample_agent"<br>
+        &nbsp;&nbsp;user-id="cdn_user_123"<br>
+        &nbsp;&nbsp;session-id="cdn_session_123"<br>
+        &nbsp;&nbsp;mode="fullscreen"<br>
+        &nbsp;&nbsp;response-mode="stream"&gt;<br>
+        &lt;/adk-client&gt;
+      </div>
+      
+      <!-- Fullscreen demo -->
+      <div style="height: 500px; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
+        <adk-client
+          api-url="http://localhost:8000"
+          app-name="my_sample_agent"
+          user-id="cdn_user_123"
+          session-id="cdn_session_123"
+          mode="fullscreen"
+          response-mode="stream">
+        </adk-client>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Production Configuration</h3>
+      <p>Example of how you might configure this for a production environment:</p>
+      <div class="code-block">
+        &lt;adk-client<br>
+        &nbsp;&nbsp;api-url="https://api.mycompany.com"<br>
+        &nbsp;&nbsp;app-name="customer_support"<br>
+        &nbsp;&nbsp;user-id="website_visitor"&gt;<br>
+        &nbsp;&nbsp;mode="widget"<br>
+        &nbsp;&nbsp;response-mode="stream"&gt;<br>
+        &lt;/adk-client&gt;
+      </div>
+      <div class="note">
+        <strong>Security Note:</strong> In production, ensure your ADK server has proper CORS configuration and only allows requests from your domain.
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Version Pinning (Recommended for Production)</h3>
+      <p>For production use, it's recommended to pin to a specific version:</p>
+      <div class="code-block">
+        &lt;!-- Pin to specific version --&gt;<br>
+        &lt;link rel="stylesheet" href="https://unpkg.com/adk-client-web-component@0.0.3/dist/adk-client-web-component.css"&gt;<br>
+        &lt;script type="module"&gt;<br>
+        &nbsp;&nbsp;import 'https://unpkg.com/adk-client-web-component@0.0.3/dist/adk-client-standalone.js';<br>
+        &lt;/script&gt;
+      </div>
+    </div>
+  </div>
+
+  <!-- Widget demo - fixed position -->
+  <adk-client
+    api-url="http://localhost:8000"
+    app-name="my_sample_agent"
+    mode="widget">
+  </adk-client>
+
+  <!-- Import as ES module from CDN -->
+  <script type="module">
+    import 'https://unpkg.com/adk-client-web-component/dist/adk-client-standalone.js';
+    
+    // Update loading status
+    document.addEventListener('DOMContentLoaded', function() {
+      const statusElement = document.getElementById('cdn-status');
+      const loadingStatus = document.getElementById('loading-status');
+      
+      // Check if the component loaded successfully
+      setTimeout(() => {
+        if (customElements.get('adk-client')) {
+          statusElement.textContent = 'CDN Loaded (v0.0.3)';
+          statusElement.className = 'cdn-status cdn-success';
+          loadingStatus.innerHTML = '✅ <strong>CDN Loading Successful!</strong> The ADK Client Web Component v0.0.3 has been loaded from unpkg.com and is ready to use.';
+        } else {
+          statusElement.textContent = 'CDN Failed';
+          statusElement.className = 'cdn-status cdn-error';
+          loadingStatus.innerHTML = '❌ <strong>CDN Loading Failed!</strong> Please check your internet connection or try refreshing the page.';
+        }
+      }, 1000);
+    });
+  </script>
+</body>
+</html>

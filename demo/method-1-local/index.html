@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADK Client - Method 1: Local Installation</title>
+  <!-- No CSS needed - component uses Shadow DOM with embedded styles -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .description {
+      background: #e8f4fd;
+      border: 1px solid #bee5eb;
+      border-radius: 4px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .demo-section {
+      margin: 20px 0;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    .demo-section h3 {
+      margin-top: 0;
+      color: #555;
+    }
+    .code-block {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 4px;
+      padding: 15px;
+      margin: 10px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      overflow-x: auto;
+    }
+    .note {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 4px;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 14px;
+    }
+    /* Position the widget */
+    adk-client[mode="widget"] {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      width: 400px;
+      height: 600px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ADK Client - Method 1: Local Installation Demo</h1>
+    
+    <div class="description">
+      <h4>About This Method</h4>
+      <p>This demo shows how to use the ADK Client Web Component after installing it via npm. The component is loaded from local node_modules using relative paths.</p>
+      <p><strong>Key Feature:</strong> The component uses Shadow DOM with embedded styles - no external CSS needed!</p>
+      <p><strong>Setup:</strong> Run <code>npm install adk-client-web-component</code> in this directory.</p>
+    </div>
+
+    <div class="demo-section">
+      <h3>Widget Mode Demo</h3>
+      <p>The chat widget appears in the bottom-right corner of this page. Click on it to open the chat interface.</p>
+      <div class="code-block">
+        &lt;!-- Web component with configuration attributes --&gt;<br>
+        &lt;adk-client<br>
+        &nbsp;&nbsp;api-url="http://localhost:8000"<br>
+        &nbsp;&nbsp;app-name="my_sample_agent"<br>
+        &nbsp;&nbsp;user-id="user_123"<br>
+        &nbsp;&nbsp;session-id="session_123"<br>
+        &nbsp;&nbsp;mode="widget"<br>
+        &nbsp;&nbsp;response-mode="stream"&gt;<br>
+        &lt;/adk-client&gt;<br>
+        <br>
+        &lt;!-- Import the standalone component --&gt;<br>
+        &lt;script type="module" src="./node_modules/adk-client-web-component/dist/adk-client-standalone.js"&gt;&lt;/script&gt;
+      </div>
+      <div class="note">
+        <strong>Note:</strong> No external CSS required! The component uses Shadow DOM with embedded styles. Just serve the HTML through a web server (e.g., <code>npx serve</code>, <code>python -m http.server</code>).
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Fullscreen Mode Demo</h3>
+      <p>Below is a fullscreen version of the chat interface embedded directly in the page:</p>
+      <div class="code-block">
+        &lt;adk-client<br>
+        &nbsp;&nbsp;api-url="http://localhost:8000"<br>
+        &nbsp;&nbsp;app-name="my_sample_agent"<br>
+        &nbsp;&nbsp;user-id="user_123"<br>
+        &nbsp;&nbsp;session-id="session_123"<br>
+        &nbsp;&nbsp;mode="fullscreen"<br>
+        &nbsp;&nbsp;response-mode="standard"&gt;<br>
+        &lt;/adk-client&gt;
+      </div>
+      
+      <!-- Fullscreen demo -->
+      <div style="height: 500px; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
+        <adk-client
+          api-url="http://localhost:8000"
+          app-name="my_sample_agent"
+          user-id="user_123"
+          session-id="session_123"
+          mode="fullscreen"
+          response-mode="standard">
+        </adk-client>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>Custom Configuration Demo</h3>
+      <p>This example shows custom configuration with different settings:</p>
+      <div class="code-block">
+        &lt;adk-client<br>
+        &nbsp;&nbsp;api-url="https://api.mycompany.com"<br>
+        &nbsp;&nbsp;app-name="customer_support_agent"<br>
+        &nbsp;&nbsp;user-id="user_456"<br>
+        &nbsp;&nbsp;session-id="session_789"<br>
+        &nbsp;&nbsp;response-mode="standard"&gt;<br>
+        &lt;/adk-client&gt;
+      </div>
+    </div>
+  </div>
+
+  <!-- Widget demo - fixed position -->
+  <adk-client
+    api-url="http://localhost:8000"
+    app-name="my_sample_agent"
+    user-id="user_123"
+    session-id="session_123"
+    mode="widget"
+    response-mode="stream">
+  </adk-client>
+
+  <!-- Import the standalone component -->
+  <script type="module" src="./node_modules/adk-client-web-component/dist/adk-client-standalone.js"></script>
+</body>
+</html>

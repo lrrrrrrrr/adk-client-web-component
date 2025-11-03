@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+/* Demo page base styles */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(249 250 251);
+}
+
+#root {
+  min-height: 100vh;
+}

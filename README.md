@@ -2,18 +2,79 @@
 
 > **Disclaimer**: This project is "Vibecoded" - built with passion and good vibes! While it follows modern development practices and includes production-ready features, it's created for learning and demonstration purposes.
 
-A modern React chat interface for Google's Agent Development Kit (ADK). Built with TypeScript, Tailwind CSS, and state-of-the-art React libraries.
+A modern, self-contained web component chat interface for Google's Agent Development Kit (ADK). Built with React, TypeScript, and Tailwind CSS, packaged as a framework-agnostic web component with **Shadow DOM and embedded styles**.
 
-## Features
+## ✨ Key Features
 
-- **Modern Stack**: React 19, TypeScript, Vite 7, Tailwind CSS 4
-- **Beautiful UI**: Clean, responsive design with smooth animations
-- **Real-time Streaming**: Support for both standard and streaming ADK responses
-- **Dual Modes**: Fullscreen and widget modes for different use cases
-- **Configurable**: Environment variables and runtime configuration
-- **Persistent State**: Chat configuration persisted across sessions
-- **Production Ready**: Error boundaries, proper error handling, and retry logic
-- **Accessible**: WCAG compliant with keyboard navigation support
+- 🎨 **Shadow DOM with Embedded Styles** - No external CSS needed, zero style conflicts
+- 🚀 **Framework Agnostic** - Works with React, Vue, Angular, or vanilla JavaScript  
+- 💅 **Modern Stack** - React 19, TypeScript, Vite 7, Tailwind CSS 4
+- ✨ **Beautiful UI** - Clean, responsive design with smooth animations
+- ⚡ **Real-time Streaming** - Support for both standard and streaming ADK responses
+- 🎯 **Dual Modes** - Fullscreen and widget modes for different use cases
+- ⚙️ **Built-in Configuration** - Runtime settings panel for users
+- 🔒 **Type Safe** - Full TypeScript support with exported types
+- ♿ **Accessible** - WCAG compliant with keyboard navigation
+
+## 📖 Table of Contents
+
+- [Quick Start](#-quick-start)
+- [Screenshots](#screenshots)
+- [Integration Methods](#-integration-methods)
+- [Live Demos](#-live-demos)
+- [Web Component Attributes](#web-component-attributes)
+- [Important Notes](#-important-notes)
+- [TypeScript Support](#typescript-support)
+- [Development Setup](#%EF%B8%8F-development-setup)
+- [ADK Server Requirements](#-adk-server-requirements)
+- [Demo Folder](#-demo-folder)
+- [Contributing](#-contributing)
+
+## 🚀 Quick Start
+
+### Option 1: CDN (Fastest - No Installation)
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+  <!-- Just add the custom element -->
+  <adk-client
+    api-url="http://localhost:8000"
+    app-name="my_sample_agent"
+    mode="widget">
+  </adk-client>
+
+  <!-- Import from CDN -->
+  <script type="module">
+    import 'https://unpkg.com/adk-client-web-component/dist/adk-client-standalone.js';
+  </script>
+</body>
+</html>
+```
+
+### Option 2: NPM Installation
+
+```bash
+npm install adk-client-web-component
+```
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+  <adk-client
+    api-url="http://localhost:8000"
+    app-name="my_sample_agent"
+    mode="fullscreen">
+  </adk-client>
+
+  <script type="module" src="./node_modules/adk-client-web-component/dist/adk-client-standalone.js"></script>
+</body>
+</html>
+```
+
+**Important:** Serve via a web server (`npx serve`, `python -m http.server`), not as `file://`
 
 ## Screenshots
 
@@ -23,86 +84,106 @@ A modern React chat interface for Google's Agent Development Kit (ADK). Built wi
 ### Widget Mode
 ![ADK Client Web Component — Widget](./docs/images/widget.png)
 
-## Installation
+## 📚 Integration Methods
 
-For npm usage, install the package:
+The component can be used in multiple ways. Check the [`demo/`](./demo) folder for complete working examples!
+
+### Method 1: CDN Usage (Zero Installation)
+
+Perfect for quick prototypes and static sites:
+
+```html
+<adk-client
+  api-url="http://localhost:8000"
+  app-name="my_agent"
+  mode="widget">
+</adk-client>
+
+<script type="module">
+  import 'https://unpkg.com/adk-client-web-component@0.0.3/dist/adk-client-standalone.js';
+</script>
+```
+
+[View CDN Demo →](./demo/method-2-cdn)
+
+### Method 2: Local Installation
+
+For development with npm packages:
 
 ```bash
 npm install adk-client-web-component
 ```
 
-## Usage
-
-### Method 1: Web Component (Recommended)
-
-The easiest way to use the ADK Client is as a web component. It automatically registers itself when imported:
-
 ```html
-<!DOCTYPE html>
-<html>
-<head>
-<title>ADK Client Example</title>
-<!-- Include the CSS -->
-<link rel="stylesheet" href="node_modules/adk-client-web-component/dist/adk-client-web-component.css">
-</head>
-<body>
-<!-- Web component with configuration attributes -->
 <adk-client
   api-url="http://localhost:8000"
-  app-name="my_sample_agent"
-  user-id="user_123"
-  session-id="session_123"
-  mode="widget"
-  response-mode="stream">
+  app-name="my_agent">
 </adk-client>
 
-<!-- Import the component -->
-<script type="module">
-  import 'adk-client-web-component';
-</script>
-</body>
-</html>
+<script type="module" src="./node_modules/adk-client-web-component/dist/adk-client-standalone.js"></script>
 ```
 
-### Method 2: React Component
+[View Local Demo →](./demo/method-1-local)
 
-You can also use it as a React component in your existing React application:
+### Method 3: React Integration
+
+Use in React applications:
 
 ```tsx
-import React from 'react';
-import { ChatWindow } from 'adk-client-web-component';
-import 'adk-client-web-component/dist/adk-client-web-component.css';
+import 'adk-client-web-component';
 
 function App() {
-return (
-  <div className="app">
-    <ChatWindow />
-  </div>
-);
+  return (
+    <adk-client
+      api-url="http://localhost:8000"
+      app-name="my_agent"
+      mode="fullscreen"
+    />
+  );
 }
-
-export default App;
 ```
 
-### Method 3: Programmatic Web Component
+[View React Demo →](./demo/method-3-react)
 
-Register and use the web component programmatically:
+### Method 4: Programmatic Control
+
+Create and control components dynamically:
 
 ```javascript
-import { AdkClientWebComponent } from 'adk-client-web-component';
+import 'adk-client-web-component';
 
-// Register the component
-customElements.define('my-adk-client', AdkClientWebComponent);
+const chat = document.createElement('adk-client');
+chat.setAttribute('api-url', 'http://localhost:8000');
+chat.setAttribute('app-name', 'my_agent');
+chat.setAttribute('mode', 'fullscreen');
 
-// Create and configure the element
-const adkClient = document.createElement('my-adk-client');
-adkClient.setAttribute('api-url', 'http://localhost:8000');
-adkClient.setAttribute('app-name', 'my_sample_agent');
-adkClient.setAttribute('mode', 'fullscreen');
-
-// Add to DOM
-document.body.appendChild(adkClient);
+document.body.appendChild(chat);
 ```
+
+[View Programmatic Demo →](./demo/method-4-programmatic)
+
+## 🎮 Live Demos
+
+The `demo/` folder contains **fully working, standalone examples** for each integration method:
+
+```bash
+# Clone and explore demos
+git clone https://github.com/lrrrrrrrr/adk-client-web-component.git
+cd adk-client-web-component
+
+# Build the project first
+npm install
+npm run build
+
+# Run demos
+cd demo
+npm run serve:method1    # Local installation demo
+npm run serve:method2    # CDN demo  
+npm run dev:method3      # React demo
+npm run serve:method4    # Programmatic demo
+```
+
+[View Demo Documentation →](./demo/README.md)
 
 ## Web Component Attributes
 
@@ -148,30 +229,47 @@ response-mode="standard">
 </adk-client>
 ```
 
-## CDN Usage (No Build Step)
+## 💡 Important Notes
 
-You can use the component directly from CDN without any build process:
+### Shadow DOM with Embedded Styles
 
-```html
-<!DOCTYPE html>
-<html>
-<head>
-<title>ADK Client CDN Example</title>
-<link rel="stylesheet" href="https://unpkg.com/adk-client-web-component/dist/adk-client-web-component.css">
-</head>
-<body>
-<adk-client
-  api-url="http://localhost:8000"
-  app-name="my_sample_agent"
-  mode="widget">
-</adk-client>
+✅ **No external CSS file needed!** All Tailwind CSS styles are compiled and embedded in the JavaScript bundle.
 
-<script type="module">
-  import 'https://unpkg.com/adk-client-web-component/dist/adk-client-standalone.js';
-</script>
-</body>
-</html>
+The component uses **Shadow DOM** which means:
+- ✅ **Zero style conflicts** with your existing CSS
+- ✅ **Self-contained** - works out of the box
+- ✅ **Portable** - copy anywhere and it works
+
+### File Serving Requirements
+
+When using local files with relative paths (Method 1), you **must** serve through a web server:
+
+```bash
+# Option 1: serve (recommended)
+npx serve
+
+# Option 2: Python
+python -m http.server 8000
+
+# Option 3: VS Code Live Server extension
 ```
+
+❌ **Don't** open HTML files directly as `file://` - ES modules won't work!
+
+### Module Specifiers
+
+Browsers don't resolve bare module specifiers. You must use:
+
+1. **Relative paths**: `./node_modules/adk-client-web-component/dist/...`
+2. **Full URLs**: `https://unpkg.com/adk-client-web-component/dist/...`
+3. **Build tools**: Vite, Webpack, etc. (handles resolution)
+
+### Build Outputs
+
+- **`adk-client-standalone.js`** - Complete bundle with React and all dependencies (recommended)
+- **`adk-client.es.js`** - ES module, requires external React (for advanced use cases)
+- **`adk-client.umd.js`** - UMD format (legacy browsers)
+- **`adk-client-web-component.css`** - Compiled CSS (optional, for reference only)
 
 ## TypeScript Support
 
@@ -215,39 +313,53 @@ height: 600px;
 - Shadow DOM support required for web component
 - Server-Sent Events support for streaming
 
-## Examples Repository
+## 🛠️ Development Setup
 
-Check out complete examples at: [GitHub Examples](https://github.com/lrrrrrrrr/adk-client-web-component/tree/main/examples)
+### Prerequisites
 
-## Prerequisites
+- **Node.js 18+** (LTS recommended)
+- **npm 9+** (or pnpm/yarn equivalent)
+- **Running ADK server** with CORS and SSE (Server-Sent Events) enabled
 
-- Node.js 18+ (LTS recommended)
-- npm 9+ (or pnpm/yarn equivalent)
-- Access to a running ADK backend API with CORS and SSE (Server-Sent Events) enabled
+### Setup for Development
 
-## Quick Start
-
-1. **Clone and install dependencies:**
+1. **Clone the repository:**
    ```bash
-   git clone git@github.com:lrrrrrrrr/adk-client-web-component.git
+   git clone https://github.com/lrrrrrrrr/adk-client-web-component.git
    cd adk-client-web-component
+   ```
+
+2. **Install dependencies:**
+   ```bash
    npm install
    ```
 
-2. **Configure environment variables:**
+3. **Configure environment:**
    ```bash
    cp .env.example .env
    # Edit .env with your ADK server details
    ```
 
-3. **Start development server:**
+4. **Start development server:**
    ```bash
    npm run dev
    ```
+   
+   Open http://localhost:5173 - The app will hot-reload as you edit files.
 
-4. **Build for production:**
+5. **Build for production:**
    ```bash
    npm run build
+   ```
+   
+   This creates:
+   - `dist/adk-client-standalone.js` - Standalone bundle with embedded styles
+   - `dist/adk-client.es.js` - ES module version
+   - `dist/adk-client.umd.js` - UMD version
+   - Type definitions and source maps
+
+6. **Preview production build:**
+   ```bash
    npm run preview
    ```
 
@@ -386,27 +498,53 @@ The build is optimized for production with:
 - **AWS S3 + CloudFront**: Scalable static hosting
 - **Traditional hosting**: Any static file server
 
-## Backend Requirements
+## 🔌 ADK Server Requirements
 
-- Your ADK backend must enable CORS for your frontend origin (development and production URLs).
-- Streaming endpoint (`/run_sse`) must support Server‑Sent Events and flush tokens as they are generated.
-- Endpoints expected by this UI:
-  - `POST /apps/{app}/users/{user}/sessions/{session}` — create/get conversation session
-  - `POST /run` — non‑streaming responses
-  - `POST /run_sse` — streaming responses (SSE)
-  - `GET /list-apps` — list available agent apps
+The component requires a running ADK (Agent Development Kit) backend server.
 
-### ADK server
+### Required Endpoints
 
-This UI requires a running ADK API server. For local development, you can start it with permissive CORS to accept requests from any origin:
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/apps/{app}/users/{user}/sessions/{session}` | POST | Create/get conversation session |
+| `/run` | POST | Send message (standard mode) |
+| `/run_sse` | POST | Send message (streaming mode, SSE) |
+| `/list-apps` | GET | List available agent apps |
+
+### CORS Configuration
+
+Your ADK server must enable CORS for your frontend origin.
+
+**Development:**
 ```bash
+# Allow all origins (development only!)
 adk api_server --allow_origins="*"
 ```
 
-Note: only use `--allow_origins="*"` for local development. In production, specify explicit origins:
+**Production:**
 ```bash
-adk api_server --allow_origins="https://yourdomain.com"
+# Specify explicit origins
+adk api_server --allow_origins="https://yourdomain.com,https://www.yourdomain.com"
 ```
+
+### Streaming Support
+
+The `/run_sse` endpoint must:
+- Support Server-Sent Events (SSE)
+- Flush tokens as they're generated
+- Send events in the format: `data: {"token": "..."}\n\n`
+
+### Quick Start ADK Server
+
+```bash
+# Install ADK
+pip install google-adk
+
+# Start server with permissive CORS for development
+adk api_server --allow_origins="*"
+```
+
+The server will start on `http://localhost:8000` by default.
 
 ## Troubleshooting
 
@@ -419,37 +557,75 @@ adk api_server --allow_origins="https://yourdomain.com"
 ### Debug Mode
 Set `NODE_ENV=development` to enable additional error information and logging.
 
-## Contributing
+## 📦 Demo Folder
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+The `demo/` folder contains **4 complete, standalone integration examples**:
 
-## License
+1. **Method 1: Local Installation** - Using npm with local node_modules
+2. **Method 2: CDN Usage** - Zero installation, load from unpkg.com  
+3. **Method 3: React Integration** - Full React + TypeScript + Vite setup
+4. **Method 4: Programmatic** - Dynamic component creation with JavaScript
 
-MIT License.
+Each demo is self-contained and can be copied/used independently. See [demo/README.md](./demo/README.md) for detailed instructions.
 
-### Optional: React ESLint plugins
+### Running Demos
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for additional React-specific rules:
+```bash
+# Build the main project first
+npm run build
 
-```js
-// eslint.config.js (Flat config)
-import tseslint from 'typescript-eslint'
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+# Run individual demos
+cd demo
+npm run serve:method1    # Local installation
+npm run serve:method2    # CDN  
+npm run dev:method3      # React (with hot reload)
+npm run serve:method4    # Programmatic
 
-export default tseslint.config([
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-  },
-])
+# Or setup all at once
+npm run setup:all
 ```
+
+## 🤝 Contributing
+
+Contributions are welcome! Here's how:
+
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Make** your changes
+4. **Test** your changes (run demos, check types)
+5. **Commit** (`git commit -m 'Add amazing feature'`)
+6. **Push** (`git push origin feature/amazing-feature`)
+7. **Open** a Pull Request
+
+### Development Guidelines
+
+- Follow existing code style
+- Add TypeScript types for new features
+- Test changes with all integration methods (demos)
+- Update documentation as needed
+- Keep Shadow DOM and embedded styles working
+
+## 📄 License
+
+MIT License - see [LICENSE](./LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+Built with:
+- [React](https://react.dev/) - UI library
+- [Vite](https://vitejs.dev/) - Build tool
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
+- [Zustand](https://zustand-demo.pmnd.rs/) - State management
+- [React Query](https://tanstack.com/query) - Data fetching
+- [Framer Motion](https://www.framer.com/motion/) - Animations
+- [Lucide](https://lucide.dev/) - Icons
+
+## 💬 Support
+
+- **Issues**: [GitHub Issues](https://github.com/lrrrrrrrr/adk-client-web-component/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/lrrrrrrrr/adk-client-web-component/discussions)
+- **Email**: Check package.json for maintainer contact
+
+---
+
+**Made with ❤️ and good vibes**

@@ -1,0 +1,32 @@
+{
+  "name": "adk-client-demos",
+  "version": "1.0.0",
+  "description": "Demo implementations for ADK Client Web Component integration methods - completely standalone examples",
+  "private": true,
+  "scripts": {
+    "serve:method1": "cd method-1-local && npm install && npm run serve",
+    "serve:method2": "cd method-2-cdn && npx serve",
+    "dev:method3": "cd method-3-react && npm install && npm run dev",
+    "serve:method4": "cd method-4-programmatic && npx serve",
+    "build:method3": "cd method-3-react && npm run build",
+    "preview:method3": "cd method-3-react && npm run preview",
+    "setup:all": "npm run setup:method1 && npm run setup:method3",
+    "setup:method1": "cd method-1-local && npm install",
+    "setup:method3": "cd method-3-react && npm install",
+    "start:all": "npm run serve:method1 & npm run serve:method2 & npm run dev:method3 & npm run serve:method4"
+  },
+  "keywords": [
+    "adk",
+    "chat",
+    "web-component",
+    "react",
+    "demo",
+    "integration",
+    "standalone"
+  ],
+  "author": "ADK Client Team",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}

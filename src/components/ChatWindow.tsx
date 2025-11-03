@@ -46,7 +46,10 @@ export function ChatWindow({ className }: ChatWindowProps) {
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-purple-700 text-white p-6 relative overflow-hidden">
+      <div
+        className="adk-gradient-header bg-gradient-to-r from-blue-600 via-blue-700 to-purple-700 text-white p-6 relative overflow-hidden"
+        style={{ backgroundImage: 'linear-gradient(90deg, #2563eb, #1d4ed8, #7e22ce)' }}
+      >
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm"></div>
         <div className="relative flex items-center justify-between">
           <div className="flex items-center gap-4">
