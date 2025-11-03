@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from '../components/ErrorBoundary';
 import { ChatWindow } from '../components/ChatWindow';
+import { FloatingButton } from '../components/FloatingButton';
 import { useChatStore } from '../store/chatStore';
 import type { ChatConfig } from '../types';
 import '../index.css';
@@ -35,7 +36,7 @@ function AdkClientApp({
   mode = 'widget',
   responseMode = 'stream'
 }: AdkClientProps) {
-  const { updateConfig, setMode } = useChatStore();
+  const { updateConfig, setMode, isOpen } = useChatStore();
 
   React.useEffect(() => {
     const config: Partial<ChatConfig> = {};
@@ -57,12 +58,16 @@ function AdkClientApp({
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary>
         <div className="adk-client-container">
-          {mode === 'fullscreen' ? (
-            <div className="min-h-screen bg-gray-50">
+          {isOpen ? (
+            mode === 'fullscreen' ? (
+              <div className="min-h-screen bg-gray-50">
+                <ChatWindow />
+              </div>
+            ) : (
               <ChatWindow />
-            </div>
+            )
           ) : (
-            <ChatWindow />
+            <FloatingButton />
           )}
         </div>
       </ErrorBoundary>

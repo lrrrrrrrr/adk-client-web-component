@@ -61,19 +61,30 @@ export function ChatInput({ onSendMessage }: ChatInputProps) {
             aria-label="Message input"
             aria-describedby="input-hint"
             className={clsx(
-              'w-full resize-none rounded-2xl border-0 bg-gray-100 px-6 py-4 pr-16 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:shadow-lg disabled:opacity-50 transition-all duration-200',
+              'w-full resize-none rounded-2xl border-0 bg-gray-100 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:shadow-lg disabled:opacity-50 transition-all duration-200',
               'min-h-[52px] max-h-32 text-gray-900 placeholder-gray-500'
             )}
+            style={{
+              paddingLeft: '24px',
+              paddingRight: '80px',
+              paddingTop: '16px',
+              paddingBottom: '16px',
+            }}
           />
           <button
             type="submit"
             disabled={!input.trim() || isDisabled}
             className={clsx(
-              'absolute right-4 top-1/2 -translate-y-1/2 p-2.5 rounded-xl transition-all duration-200 shadow-sm',
+              'absolute p-2.5 rounded-xl transition-all duration-200 shadow-sm',
               input.trim() && !isDisabled
                 ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 hover:shadow-md'
                 : 'text-gray-400 bg-gray-200'
             )}
+            style={{
+              position: 'absolute',
+              right: '12px',
+              bottom: '12px',
+            }}
           >
             {isLoading || isStreaming ? (
               <Loader2 size={18} className="animate-spin" />

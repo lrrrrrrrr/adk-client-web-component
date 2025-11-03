@@ -39,9 +39,11 @@ export function MessageList() {
           </p>
         </motion.div>
       ) : (
-        <div className="py-6 space-y-6">
-          {messages.map((message) => (
-            <Message key={message.id} message={message} />
+        <div style={{ paddingTop: '20px', paddingBottom: '20px' }}>
+          {messages.map((message, index) => (
+            <div key={message.id} style={{ marginBottom: index < messages.length - 1 || isStreaming ? '20px' : '0' }}>
+              <Message message={message} />
+            </div>
           ))}
           {isStreaming && <TypingIndicator />}
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Settings, Minimize2, Maximize2, AlertCircle, X } from 'lucide-react';
 import { MessageList } from './ui/MessageList';
@@ -16,6 +16,7 @@ export function ChatWindow({ className }: ChatWindowProps) {
   const [isConfigOpen, setIsConfigOpen] = useState(false);
   const { mode, error, setMode, setError, setIsOpen } = useChatStore();
   const { sendMessage, isConnected, isSessionLoading } = useChat();
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   const isFullscreen = mode === 'fullscreen';
 
@@ -28,6 +29,7 @@ export function ChatWindow({ className }: ChatWindowProps) {
     if (isFullscreen) {
       setMode('widget');
     }
+    
     setIsOpen(false);
   };
 
@@ -35,6 +37,24 @@ export function ChatWindow({ className }: ChatWindowProps) {
     if (error) setError(null);
     sendMessage(message);
   };
+
+  // Add native event listeners for Shadow DOM compatibility
+  useEffect(() => {
+    const closeButton = closeButtonRef.current;
+    if (closeButton) {
+      const handleNativeClick = (e: Event) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleClose();
+      };
+      
+      closeButton.addEventListener('click', handleNativeClick);
+      
+      return () => {
+        closeButton.removeEventListener('click', handleNativeClick);
+      };
+    }
+  }, [isFullscreen, mode, setIsOpen, setMode]); // Include dependencies
 
   return (
     <motion.div
@@ -98,7 +118,7 @@ export function ChatWindow({ className }: ChatWindowProps) {
             </button>
             
             <button
-              onClick={handleClose}
+              ref={closeButtonRef}
               className="p-3 hover:bg-white/10 rounded-xl transition-all duration-200 backdrop-blur-sm"
               title="Close"
               type="button"
@@ -114,21 +134,64 @@ export function ChatWindow({ className }: ChatWindowProps) {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-r from-red-50 to-red-100 border-b border-red-200 px-6 py-4"
+          style={{
+            backgroundColor: '#fef2f2',
+            borderBottom: '1px solid #fecaca',
+            padding: '16px 24px',
+          }}
         >
-          <div className="flex items-center gap-3 text-red-800">
-            <div className="p-1 bg-red-200 rounded-full">
-              <AlertCircle size={16} />
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+            <div style={{
+              padding: '4px',
+              backgroundColor: '#fee2e2',
+              borderRadius: '6px',
+              flexShrink: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <AlertCircle size={18} style={{ color: '#dc2626' }} />
             </div>
-            <span className="text-sm font-semibold">Connection Error</span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{
+                fontSize: '14px',
+                fontWeight: 600,
+                color: '#991b1b',
+                marginBottom: '4px',
+              }}>
+                Connection Error
+              </div>
+              <p style={{
+                fontSize: '13px',
+                color: '#7f1d1d',
+                lineHeight: '1.5',
+                margin: 0,
+              }}>
+                {error}
+              </p>
+            </div>
             <button
               onClick={() => setError(null)}
-              className="ml-auto p-1 hover:bg-red-200 rounded-full transition-colors text-red-600 hover:text-red-800"
+              style={{
+                padding: '6px',
+                backgroundColor: 'transparent',
+                border: 'none',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                color: '#dc2626',
+                flexShrink: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'background-color 0.2s',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#fee2e2'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+              title="Dismiss"
             >
-              ×
+              <X size={18} />
             </button>
           </div>
-          <p className="text-xs text-red-700 mt-2 ml-8">{error}</p>
         </motion.div>
       )}
 

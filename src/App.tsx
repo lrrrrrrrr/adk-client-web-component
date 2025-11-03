@@ -19,22 +19,30 @@ function App() {
   const mode = useChatStore((state) => state.mode);
   const isOpen = useChatStore((state) => state.isOpen);
 
+  console.log('🔍 App rendering - isOpen:', isOpen, 'mode:', mode);
+
   return (
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary>
         <div className="min-h-screen bg-gray-50">
           {isOpen ? (
-            mode === 'fullscreen' ? (
-              <ChatWindow />
-            ) : (
-              <div className="fixed bottom-4 right-4 z-50">
+            <>
+              {console.log('🔍 Rendering ChatWindow (isOpen=true)')}
+              {mode === 'fullscreen' ? (
                 <ChatWindow />
-              </div>
-            )
+              ) : (
+                <div className="fixed bottom-4 right-4 z-50">
+                  <ChatWindow />
+                </div>
+              )}
+            </>
           ) : (
-            <div className="fixed bottom-6 right-6 z-50">
-              <FloatingButton />
-            </div>
+            <>
+              {console.log('🔍 Rendering FloatingButton (isOpen=false)')}
+              <div className="fixed bottom-6 right-6 z-50">
+                <FloatingButton />
+              </div>
+            </>
           )}
         </div>
       </ErrorBoundary>

@@ -7,53 +7,61 @@ export function FloatingButton() {
   const { setIsOpen } = useChatStore();
 
   return (
-    <motion.button
-      onClick={() => setIsOpen(true)}
-      className="group relative bg-gradient-to-br from-blue-600 via-blue-700 to-purple-700 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 overflow-hidden"
-      style={{
-        width: '64px',
-        height: '64px',
-      }}
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.95 }}
-      transition={{ type: "spring", stiffness: 260, damping: 20 }}
-      title="Open Chat"
-      aria-label="Open chat window"
-    >
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 1000 }}>
+      <motion.button
+        onClick={() => setIsOpen(true)}
+        className="group relative text-white rounded-full transition-all duration-300 overflow-hidden"
+        style={{
+          width: '60px',
+          height: '60px',
+          background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #7e22ce 100%)',
+          boxShadow: '0 8px 24px rgba(37, 99, 235, 0.4)',
+          border: 'none',
+          cursor: 'pointer',
+        }}
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        whileHover={{ 
+          scale: 1.1,
+          boxShadow: '0 12px 32px rgba(37, 99, 235, 0.5)',
+        }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        title="Open Chat"
+        aria-label="Open chat window"
+      >
       
       {/* Pulsing ring animation */}
       <motion.div
-        className="absolute inset-0 rounded-full border-2 border-white/30"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          borderRadius: '9999px',
+          border: '2px solid rgba(255, 255, 255, 0.4)',
+        }}
         animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.5, 0, 0.5],
+          scale: [1, 1.3, 1],
+          opacity: [0.6, 0, 0.6],
         }}
         transition={{
-          duration: 2,
+          duration: 2.5,
           repeat: Infinity,
           ease: "easeInOut",
         }}
       />
 
       {/* Icon */}
-      <div className="relative z-10 flex items-center justify-center h-full">
-        <MessageCircle size={28} className="drop-shadow-lg" />
+      <div style={{ 
+        position: 'relative', 
+        zIndex: 10, 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        height: '100%' 
+      }}>
+        <MessageCircle size={26} strokeWidth={2} />
       </div>
-
-      {/* Badge for notifications (optional, can be enhanced later) */}
-      <motion.div
-        className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-lg"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 0.3, type: "spring" }}
-        style={{ display: 'none' }} // Hidden by default, can be shown when needed
-      >
-        !
-      </motion.div>
     </motion.button>
+    </div>
   );
 }

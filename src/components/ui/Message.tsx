@@ -42,31 +42,53 @@ export const Message = memo(function Message({ message }: MessageProps) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className={clsx(
-        'flex gap-4 px-6',
-        isUser ? 'justify-end' : 'justify-start'
-      )}
+      style={{
+        display: 'flex',
+        gap: '12px',
+        paddingLeft: '24px',
+        paddingRight: '24px',
+        justifyContent: isUser ? 'flex-end' : 'flex-start',
+      }}
       role="article"
       aria-label={`${isUser ? 'User' : 'Assistant'} message at ${formattedTime}`}
     >
       {!isUser && (
         <div
-          className="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-500 via-blue-600 to-purple-600 flex items-center justify-center flex-shrink-0 mt-1 shadow-lg"
+          style={{
+            width: '36px',
+            height: '36px',
+            borderRadius: '12px',
+            background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #7e22ce 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+            marginTop: '4px',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+          }}
           role="img"
           aria-label="Assistant avatar"
         >
-          <Bot size={20} className="text-white" aria-hidden="true" />
+          <Bot size={18} style={{ color: 'white' }} aria-hidden="true" />
         </div>
       )}
       
-      <div className={clsx(
-        'max-w-[75%] rounded-3xl px-6 py-4 text-sm shadow-sm',
-        isUser
-          ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-blue-500/10'
-          : 'bg-white text-gray-800 border border-gray-100 shadow-gray-900/5'
-      )}>
+      <div style={{
+        maxWidth: '70%',
+        borderRadius: '18px',
+        padding: '14px 18px',
+        fontSize: '14px',
+        lineHeight: '1.6',
+        boxShadow: isUser ? '0 2px 8px rgba(37, 99, 235, 0.15)' : '0 2px 8px rgba(0, 0, 0, 0.08)',
+        background: isUser ? 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)' : '#ffffff',
+        color: isUser ? '#ffffff' : '#1f2937',
+        border: isUser ? 'none' : '1px solid #e5e7eb',
+      }}>
         <div
-          className="whitespace-pre-wrap break-words leading-relaxed"
+          style={{
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+          }}
           aria-live={isStreaming ? 'polite' : 'off'}
           aria-busy={isStreaming}
         >
@@ -77,7 +99,15 @@ export const Message = memo(function Message({ message }: MessageProps) {
             >
               <span dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
               <span
-                className="inline-block w-2 h-5 ml-1 bg-current animate-pulse rounded-sm"
+                style={{
+                  display: 'inline-block',
+                  width: '8px',
+                  height: '20px',
+                  marginLeft: '4px',
+                  backgroundColor: 'currentColor',
+                  borderRadius: '2px',
+                  animation: 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                }}
                 aria-label="Loading"
                 role="status"
               />
@@ -88,10 +118,13 @@ export const Message = memo(function Message({ message }: MessageProps) {
         </div>
         
         <time
-          className={clsx(
-            'text-xs mt-3 font-medium block',
-            isUser ? 'text-blue-100' : 'text-gray-400'
-          )}
+          style={{
+            fontSize: '11px',
+            marginTop: '8px',
+            fontWeight: 500,
+            display: 'block',
+            color: isUser ? 'rgba(255, 255, 255, 0.7)' : '#9ca3af',
+          }}
           dateTime={message.timestamp.toISOString()}
         >
           {formattedTime}
@@ -100,11 +133,22 @@ export const Message = memo(function Message({ message }: MessageProps) {
       
       {isUser && (
         <div
-          className="w-10 h-10 rounded-2xl bg-gradient-to-br from-gray-600 to-gray-700 flex items-center justify-center flex-shrink-0 mt-1 shadow-lg"
+          style={{
+            width: '36px',
+            height: '36px',
+            borderRadius: '12px',
+            background: 'linear-gradient(135deg, #4b5563 0%, #374151 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+            marginTop: '4px',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+          }}
           role="img"
           aria-label="User avatar"
         >
-          <User size={18} className="text-white" aria-hidden="true" />
+          <User size={16} style={{ color: 'white' }} aria-hidden="true" />
         </div>
       )}
     </motion.div>

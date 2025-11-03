@@ -119,43 +119,27 @@ export function ConfigPanel({ isOpen, onClose }: ConfigPanelProps) {
                     type="button"
                     onClick={() => setFormData({ ...formData, responseMode: 'stream' })}
                     className={clsx(
-                      'rounded-xl border px-3.5 py-2.5 text-sm font-medium transition-all text-left',
+                      'rounded-xl border-2 px-4 py-3 text-sm font-medium transition-all text-left',
                       formData.responseMode === 'stream'
                         ? 'border-blue-600 bg-blue-50 text-blue-700 shadow-sm'
-                        : 'border-gray-200 hover:bg-gray-50 text-gray-700'
+                        : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700'
                     )}
                   >
-                    <div className="flex items-center justify-between">
-                      <span>Stream</span>
-                      <span className={clsx(
-                        'ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold',
-                        formData.responseMode === 'stream' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-                      )}>
-                        S
-                      </span>
-                    </div>
-                    <p className="mt-2 text-xs text-gray-500">Tokens appear live (SSE).</p>
+                    <div className="font-semibold mb-1">Stream</div>
+                    <p className="text-xs text-gray-500">Tokens appear live (SSE)</p>
                   </button>
                   <button
                     type="button"
                     onClick={() => setFormData({ ...formData, responseMode: 'standard' })}
                     className={clsx(
-                      'rounded-xl border px-3.5 py-2.5 text-sm font-medium transition-all text-left',
+                      'rounded-xl border-2 px-4 py-3 text-sm font-medium transition-all text-left',
                       formData.responseMode === 'standard'
                         ? 'border-blue-600 bg-blue-50 text-blue-700 shadow-sm'
-                        : 'border-gray-200 hover:bg-gray-50 text-gray-700'
+                        : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700'
                     )}
                   >
-                    <div className="flex items-center justify-between">
-                      <span>Standard</span>
-                      <span className={clsx(
-                        'ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold',
-                        formData.responseMode === 'standard' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-                      )}>
-                        F
-                      </span>
-                    </div>
-                    <p className="mt-2 text-xs text-gray-500">Full response after processing.</p>
+                    <div className="font-semibold mb-1">Standard</div>
+                    <p className="text-xs text-gray-500">Full response after processing</p>
                   </button>
                 </div>
               </section>

@@ -84,6 +84,7 @@ export const useChatStore = create<ChatStore>()(
       partialize: (state) => ({
         config: state.config,
         mode: state.mode,
+        isOpen: state.isOpen,
       }),
     }
   )
