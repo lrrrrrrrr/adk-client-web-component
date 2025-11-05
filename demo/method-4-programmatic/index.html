@@ -197,7 +197,7 @@
       <p>Configure and create components dynamically:</p>
       
       <div class="config-panel">
-        <div style="display: grid; gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '15px'">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
           <div>
             <label>API URL:</label>
             <input type="text" id="api-url" value="http://localhost:8000">
@@ -321,7 +321,7 @@
 
   <!-- Import the component class from CDN -->
   <script type="module">
-    import 'https://unpkg.com/adk-client-web-component/dist/adk-client-standalone.js';
+    import 'https://unpkg.com/adk-client-web-component@1.0.3/dist/adk-client-standalone.js';
     
     // Demo state
     let componentCount = 0;

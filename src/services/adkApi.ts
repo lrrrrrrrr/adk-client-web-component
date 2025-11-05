@@ -40,7 +40,7 @@ export class ADKApiService {
       const enhancedOptions: RequestInit = {
         ...options,
         signal: controller.signal,
-        // Remove credentials: 'include' to avoid CORS issues with wildcard origins
+        mode: 'cors', // Explicitly enable CORS mode
         headers: {
           'Content-Type': 'application/json',
           'X-Request-ID': requestId,
@@ -199,6 +199,7 @@ export class ADKApiService {
     try {
       const response = await fetch(`${this.baseUrl}/run_sse`, {
         method: 'POST',
+        mode: 'cors', // Explicitly enable CORS mode
         headers: {
           'Content-Type': 'application/json',
           Accept: 'text/event-stream',
@@ -206,7 +207,6 @@ export class ADKApiService {
         },
         body: JSON.stringify(request),
         signal: controller.signal,
-        // Remove credentials: 'include' to avoid CORS issues
       });
 
       if (!response.ok) {

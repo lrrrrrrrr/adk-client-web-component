@@ -58,11 +58,11 @@ This demo demonstrates how to use the ADK Client Web Component directly from CDN
 1. **Pin to specific version** for stability:
    ```html
    <script type="module">
-     import 'https://unpkg.com/adk-client-web-component@1.0.0/dist/adk-client-standalone.js';
+     import 'https://unpkg.com/adk-client-web-component@1.0.3/dist/adk-client-standalone.js';
    </script>
    ```
    
-   **Note:** Version 1.0.0 is the latest published version with Shadow DOM and embedded styles.
+   **Note:** Version 1.0.3 is the latest published version with Shadow DOM, embedded styles, and enhanced CORS support.
 
 2. **Configure CORS** on your ADK server for your domain
 
@@ -80,5 +80,5 @@ The component uses **Shadow DOM** which isolates its styles. All Tailwind CSS is
 
 - **Component not loading**: Check internet connection and CDN availability
 - **CORS errors**: Ensure your ADK server allows requests from your domain
-- **No styles showing**: Ensure you're using version 1.0.0 or later which includes embedded styles in Shadow DOM.
+- **No styles showing**: Ensure you're using version 1.0.3 or later which includes embedded styles in Shadow DOM.
 - **Browser compatibility**: Ensure modern browser with ES module support
