@@ -12,7 +12,9 @@ A modern, self-contained web component chat interface for Google's Agent Develop
 - ✨ **Beautiful UI** - Clean, responsive design with smooth animations
 - ⚡ **Real-time Streaming** - Support for both standard and streaming ADK responses
 - 🎯 **Dual Modes** - Fullscreen and widget modes for different use cases
-- ⚙️ **Built-in Configuration** - Runtime settings panel for users
+- 🎨 **Fully Customizable** - Custom titles, emojis, colors, and floating button styles
+- 🤖 **Agent Auto-Discovery** - Automatic agent selection from your ADK server
+- ⚙️ **Flexible Configuration** - Runtime settings panel (can be hidden for locked configs)
 - 🔒 **Type Safe** - Full TypeScript support with exported types
 - ♿ **Accessible** - WCAG compliant with keyboard navigation
 
@@ -189,43 +191,95 @@ npm run serve:method4    # Programmatic demo
 
 Configure the ADK Client using HTML attributes:
 
+### Core Attributes
+
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `api-url` | string | - | ADK server base URL |
-| `app-name` | string | - | Agent application name |
-| `user-id` | string | - | User identifier |
-| `session-id` | string | - | Session identifier |
+| `api-url` | string | - | **Required.** ADK server base URL |
+| `app-name` | string | - | **Required.** Agent application name |
+| `user-id` | string | `'user_123'` | User identifier |
+| `session-id` | string | `'session_abc'` | Session identifier |
 | `mode` | `'widget'` \| `'fullscreen'` | `'widget'` | Display mode |
 | `response-mode` | `'standard'` \| `'stream'` | `'stream'` | Response handling mode |
 
+### Customization Attributes
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `title` | string | `'ADK Assistant'` | Custom header title |
+| `emoji` | string | `'🤖'` | Custom header emoji/icon |
+| `show-settings` | `'true'` \| `'false'` | `'true'` | Show/hide settings button |
+| `floating-button-icon` | `'default'` \| `'emoji'` \| string | `'default'` | Floating button icon (default=MessageCircle, emoji=uses emoji attr, or custom emoji) |
+| `floating-button-color` | string | gradient | Custom floating button background (CSS color/gradient) |
+
 ### Examples
 
-#### Widget Mode (Bottom Right Corner)
+#### Basic Widget Mode
 ```html
 <adk-client
-api-url="http://localhost:8000"
-app-name="my_agent"
-mode="widget">
+  api-url="http://localhost:8000"
+  app-name="my_agent"
+  mode="widget">
 </adk-client>
 ```
 
 #### Fullscreen Mode
 ```html
 <adk-client
-api-url="http://localhost:8000"
-app-name="my_agent"
-mode="fullscreen">
+  api-url="http://localhost:8000"
+  app-name="my_agent"
+  mode="fullscreen">
 </adk-client>
 ```
 
-#### With Custom Configuration
+#### Custom Branding
 ```html
 <adk-client
-api-url="https://api.mycompany.com"
-app-name="customer_support_agent"
-user-id="user_456"
-session-id="session_789"
-response-mode="standard">
+  api-url="http://localhost:8000"
+  app-name="support_agent"
+  title="Support Bot"
+  emoji="💬"
+  floating-button-icon="emoji"
+  mode="widget">
+</adk-client>
+```
+
+#### Locked Configuration (No Settings Access)
+```html
+<adk-client
+  api-url="https://api.mycompany.com"
+  app-name="customer_support_agent"
+  title="Customer Support"
+  emoji="🎯"
+  show-settings="false"
+  mode="widget">
+</adk-client>
+```
+
+#### Custom Floating Button
+```html
+<adk-client
+  api-url="http://localhost:8000"
+  app-name="my_agent"
+  floating-button-icon="🚀"
+  floating-button-color="linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)"
+  mode="widget">
+</adk-client>
+```
+
+#### With Full Custom Configuration
+```html
+<adk-client
+  api-url="https://api.mycompany.com"
+  app-name="sales_agent"
+  user-id="user_456"
+  session-id="session_789"
+  title="Sales Assistant"
+  emoji="💼"
+  show-settings="false"
+  floating-button-icon="emoji"
+  response-mode="standard"
+  mode="widget">
 </adk-client>
 ```
 

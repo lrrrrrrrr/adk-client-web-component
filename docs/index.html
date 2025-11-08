@@ -293,8 +293,8 @@
       </p>
 
       <div class="info-box">
-        <strong>🎉 New in v1.0.3</strong>
-        <p>Enhanced CORS support for seamless cross-origin requests. All Tailwind CSS styles are compiled and embedded in the JavaScript bundle. No external CSS file needed - just import and use!</p>
+        <strong>🎉 New: Full Customization Support</strong>
+        <p>Customize titles, emojis, colors, and more! Auto-discover agents from your ADK server. Hide settings for locked configurations. Control every aspect of the UI.</p>
       </div>
 
       <h2 class="section-title">Key Features</h2>
@@ -316,13 +316,23 @@
         </div>
         <div class="feature">
           <div class="feature-icon">💅</div>
-          <h3>Beautiful UI</h3>
-          <p>Modern, responsive design with Tailwind CSS. Clean and professional appearance.</p>
+          <h3>Fully Customizable</h3>
+          <p>Custom titles, emojis, colors, and floating button styles. Match your brand!</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🤖</div>
+          <h3>Agent Auto-Discovery</h3>
+          <p>Automatically fetches and displays available agents from your ADK server.</p>
         </div>
         <div class="feature">
           <div class="feature-icon">🎯</div>
           <h3>Two Modes</h3>
           <p>Widget mode (bottom-right corner) and fullscreen mode for different use cases.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">⚙️</div>
+          <h3>Flexible Settings</h3>
+          <p>Runtime configuration panel that can be shown or hidden for locked deployments.</p>
         </div>
         <div class="feature">
           <div class="feature-icon">🔒</div>
@@ -347,7 +357,7 @@
 
   &lt;!-- Import from CDN --&gt;
   &lt;script type="module"&gt;
-    import 'https://unpkg.com/adk-client-web-component@1.0.3/dist/adk-client-standalone.js';
+    import 'https://unpkg.com/adk-client-web-component@1.0.4/dist/adk-client-standalone.js';
   &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code>
@@ -404,15 +414,17 @@
     </div>
   </footer>
 
-  <!-- Live demo widget -->
+  <!-- Live demo widget with customization -->
   <adk-client
     api-url="http://localhost:8000"
     app-name="my_sample_agent"
+    title="Documentation Bot"
+    emoji="📚"
     mode="widget">
   </adk-client>
 
   <script type="module">
-    import 'https://unpkg.com/adk-client-web-component@1.0.3/dist/adk-client-standalone.js';
+    import 'https://unpkg.com/adk-client-web-component@1.0.4/dist/adk-client-standalone.js';
   </script>
 </body>
 </html>

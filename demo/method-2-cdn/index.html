@@ -186,9 +186,9 @@
       <p>For production use, it's recommended to pin to a specific version:</p>
       <div class="code-block">
         &lt;!-- Pin to specific version --&gt;<br>
-        &lt;link rel="stylesheet" href="https://unpkg.com/adk-client-web-component@1.0.3/dist/adk-client-web-component.css"&gt;<br>
+        &lt;link rel="stylesheet" href="https://unpkg.com/adk-client-web-component@1.0.4/dist/adk-client-web-component.css"&gt;<br>
         &lt;script type="module"&gt;<br>
-        &nbsp;&nbsp;import 'https://unpkg.com/adk-client-web-component@1.0.3/dist/adk-client-standalone.js';<br>
+        &nbsp;&nbsp;import 'https://unpkg.com/adk-client-web-component@1.0.4/dist/adk-client-standalone.js';<br>
         &lt;/script&gt;
       </div>
     </div>
@@ -213,9 +213,9 @@
       // Check if the component loaded successfully
       setTimeout(() => {
         if (customElements.get('adk-client')) {
-          statusElement.textContent = 'CDN Loaded (v1.0.3)';
+          statusElement.textContent = 'CDN Loaded (v1.0.4)';
           statusElement.className = 'cdn-status cdn-success';
-          loadingStatus.innerHTML = '✅ <strong>CDN Loading Successful!</strong> The ADK Client Web Component v1.0.3 has been loaded from unpkg.com and is ready to use.';
+          loadingStatus.innerHTML = '✅ <strong>CDN Loading Successful!</strong> The ADK Client Web Component v1.0.4 has been loaded from unpkg.com and is ready to use.';
         } else {
           statusElement.textContent = 'CDN Failed';
           statusElement.className = 'cdn-status cdn-error';

@@ -4,7 +4,18 @@ import { MessageCircle } from 'lucide-react';
 import { useChatStore } from '../store/chatStore';
 
 export function FloatingButton() {
-  const { setIsOpen } = useChatStore();
+  const { setIsOpen, config } = useChatStore();
+  const title = config.title || 'ADK Assistant';
+  const emoji = config.emoji || '🤖';
+  
+  // Icon configuration
+  const iconMode = config.floatingButtonIcon || 'default';
+  const useEmoji = iconMode === 'emoji';
+  const customIcon = iconMode !== 'default' && iconMode !== 'emoji' ? iconMode : null;
+  
+  // Color configuration - default gradient
+  const defaultGradient = 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #7e22ce 100%)';
+  const buttonBackground = config.floatingButtonColor || defaultGradient;
 
   return (
     <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 1000 }}>
@@ -14,7 +25,7 @@ export function FloatingButton() {
         style={{
           width: '60px',
           height: '60px',
-          background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #7e22ce 100%)',
+          background: buttonBackground,
           boxShadow: '0 8px 24px rgba(37, 99, 235, 0.4)',
           border: 'none',
           cursor: 'pointer',
@@ -27,8 +38,8 @@ export function FloatingButton() {
         }}
         whileTap={{ scale: 0.95 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        title="Open Chat"
-        aria-label="Open chat window"
+        title={`Open ${title}`}
+        aria-label={`Open ${title}`}
       >
       
       {/* Pulsing ring animation */}
@@ -57,9 +68,16 @@ export function FloatingButton() {
         display: 'flex', 
         alignItems: 'center', 
         justifyContent: 'center', 
-        height: '100%' 
+        height: '100%',
+        fontSize: useEmoji ? '28px' : 'inherit'
       }}>
-        <MessageCircle size={26} strokeWidth={2} />
+        {customIcon ? (
+          <span style={{ fontSize: '28px' }}>{customIcon}</span>
+        ) : useEmoji ? (
+          emoji
+        ) : (
+          <MessageCircle size={26} strokeWidth={2} />
+        )}
       </div>
     </motion.button>
     </div>

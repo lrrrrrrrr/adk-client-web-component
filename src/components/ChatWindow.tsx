@@ -14,7 +14,7 @@ interface ChatWindowProps {
 
 export function ChatWindow({ className }: ChatWindowProps) {
   const [isConfigOpen, setIsConfigOpen] = useState(false);
-  const { mode, error, setMode, setError, setIsOpen } = useChatStore();
+  const { mode, error, config, setMode, setError, setIsOpen } = useChatStore();
   const { sendMessage, isConnected, isSessionLoading } = useChat();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -82,10 +82,10 @@ export function ChatWindow({ className }: ChatWindowProps) {
         <div className="relative flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-lg">
-              <span className="text-2xl">🤖</span>
+              <span className="text-2xl">{config.emoji || '🤖'}</span>
             </div>
             <div>
-              <h2 className="text-xl font-bold tracking-tight">ADK Assistant</h2>
+              <h2 className="text-xl font-bold tracking-tight">{config.title || 'ADK Assistant'}</h2>
               <div className="flex items-center gap-2 text-sm text-blue-100">
                 <div className={clsx(
                   'w-2 h-2 rounded-full shadow-sm',
@@ -99,14 +99,16 @@ export function ChatWindow({ className }: ChatWindowProps) {
           </div>
           
           <div className="flex items-center gap-2 relative z-10">
-            <button
-              onClick={() => setIsConfigOpen(true)}
-              className="p-3 hover:bg-white/10 rounded-xl transition-all duration-200 backdrop-blur-sm"
-              title="Settings"
-              type="button"
-            >
-              <Settings size={20} />
-            </button>
+            {config.showSettings !== false && (
+              <button
+                onClick={() => setIsConfigOpen(true)}
+                className="p-3 hover:bg-white/10 rounded-xl transition-all duration-200 backdrop-blur-sm"
+                title="Settings"
+                type="button"
+              >
+                <Settings size={20} />
+              </button>
+            )}
             
             <button
               onClick={toggleMode}

@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Settings, X, Check, AlertCircle } from 'lucide-react';
+import { Settings, X, Check, AlertCircle, RefreshCw, Loader2 } from 'lucide-react';
 import { useChatStore } from '../../store/chatStore';
+import { useAvailableAgents } from '../../hooks/useAvailableAgents';
 import { clsx } from 'clsx';
 
 interface ConfigPanelProps {
@@ -25,6 +26,12 @@ export function ConfigPanel({ isOpen, onClose }: ConfigPanelProps) {
       return false;
     }
   };
+
+  // Fetch available agents
+  const { agents, isLoading, error, refetch } = useAvailableAgents({ 
+    apiUrl: formData.apiBaseUrl,
+    enabled: isOpen && isValidUrl(formData.apiBaseUrl)
+  });
 
   const apiUrlInvalid = useMemo(() => !isValidUrl(formData.apiBaseUrl), [formData.apiBaseUrl]);
 
@@ -150,14 +157,86 @@ export function ConfigPanel({ isOpen, onClose }: ConfigPanelProps) {
                 <div className="grid grid-cols-1 gap-4">
                   <div>
                     <label className="block text-xs font-medium text-gray-600 mb-2">App Name</label>
-                    <input
-                      type="text"
-                      value={formData.appName}
-                      onChange={(e) => setFormData({ ...formData, appName: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-500"
-                      placeholder="my_sample_agent"
-                    />
-                    <p className="text-xs text-gray-500 mt-1">Your ADK agent application name</p>
+                    <div className="relative">
+                      <select
+                        value={
+                          isLoading || !formData.appName 
+                            ? formData.appName 
+                            : agents.includes(formData.appName) 
+                            ? formData.appName 
+                            : '__custom__'
+                        }
+                        onChange={(e) => {
+                          setFormData({ ...formData, appName: e.target.value });
+                        }}
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-500 appearance-none pr-10"
+                        disabled={isLoading}
+                      >
+                        {isLoading ? (
+                          <option value="">Loading agents...</option>
+                        ) : agents.length === 0 ? (
+                          <option value="__custom__">Enter custom agent name...</option>
+                        ) : (
+                          <>
+                            <option value="">Select an agent...</option>
+                            {agents.map((agent) => (
+                              <option key={agent} value={agent}>
+                                {agent}
+                              </option>
+                            ))}
+                            <option value="__custom__">Enter custom agent name...</option>
+                          </>
+                        )}
+                      </select>
+                      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        {isLoading ? (
+                          <Loader2 size={16} className="text-gray-400 animate-spin" />
+                        ) : (
+                          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        )}
+                      </div>
+                      {agents.length > 0 && !isLoading && (
+                        <button
+                          type="button"
+                          onClick={refetch}
+                          className="absolute inset-y-0 right-8 flex items-center pr-2 text-gray-400 hover:text-gray-600 transition-colors"
+                          title="Refresh agents"
+                        >
+                          <RefreshCw size={14} />
+                        </button>
+                      )}
+                    </div>
+                    
+                    {/* Custom input for manual app name entry */}
+                    {(agents.length === 0 || formData.appName === '__custom__' || (formData.appName && !agents.includes(formData.appName))) && (
+                      <div className="mt-2">
+                        <input
+                          type="text"
+                          value={formData.appName === '__custom__' ? '' : formData.appName}
+                          onChange={(e) => setFormData({ ...formData, appName: e.target.value })}
+                          placeholder="Enter custom agent name..."
+                          className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-500"
+                        />
+                      </div>
+                    )}
+                    
+                    <div className="flex items-center gap-2 min-h-[18px] mt-1">
+                      {error ? (
+                        <p className="text-xs text-red-600 flex items-center gap-1">
+                          <AlertCircle size={14} /> {error}
+                        </p>
+                      ) : isLoading ? (
+                        <p className="text-xs text-gray-500">Fetching available agents...</p>
+                      ) : agents.length > 0 ? (
+                        <p className="text-xs text-gray-500">
+                          {agents.length} agent{agents.length === 1 ? '' : 's'} available
+                        </p>
+                      ) : (
+                        <p className="text-xs text-gray-500">No agents found. Enter custom name or check API connection.</p>
+                      )}
+                    </div>
                   </div>
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>

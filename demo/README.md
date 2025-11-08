@@ -245,13 +245,16 @@ Each demo can be deployed as-is:
 - **Fullscreen Mode**: Full-page chat interface
 - **Configuration**: API URL, app name, user/session IDs
 - **Response Modes**: Standard vs streaming responses
+- **Customization**: Custom titles, emojis, colors, and floating button styles
+- **Agent Auto-Discovery**: Automatic agent selection from ADK server
+- **Settings Control**: Show/hide settings panel
 - **Styling**: Custom CSS and positioning
 
 ### Method-Specific Features:
 - **Method 1**: Local development workflow
 - **Method 2**: CDN loading and version pinning
 - **Method 3**: React props, state management, TypeScript
-- **Method 4**: Dynamic creation, event handling, lifecycle
+- **Method 4**: Dynamic creation, event handling, lifecycle, customization examples
 
 ## 🔧 Prerequisites
 
@@ -288,12 +291,29 @@ adk api_server --allow_origins="https://yourdomain.com"
 Each demo can be configured through:
 
 ### HTML Attributes (Methods 1, 2, 4):
+
+#### Basic Configuration:
 ```html
 <adk-client
   api-url="http://localhost:8000"
   app-name="my_sample_agent"
   user-id="user_123"
   session-id="session_123"
+  mode="widget"
+  response-mode="stream">
+</adk-client>
+```
+
+#### With Customization:
+```html
+<adk-client
+  api-url="http://localhost:8000"
+  app-name="my_sample_agent"
+  title="Support Bot"
+  emoji="💬"
+  show-settings="false"
+  floating-button-icon="emoji"
+  floating-button-color="#10b981"
   mode="widget"
   response-mode="stream">
 </adk-client>
@@ -316,8 +336,28 @@ Each demo can be configured through:
 const component = document.createElement('adk-client');
 component.setAttribute('api-url', 'http://localhost:8000');
 component.setAttribute('app-name', 'my_sample_agent');
+component.setAttribute('title', 'Custom Assistant');
+component.setAttribute('emoji', '🚀');
+component.setAttribute('show-settings', 'false');
 document.body.appendChild(component);
 ```
+
+### Available Attributes:
+
+#### Core Attributes:
+- `api-url` - ADK server base URL (required)
+- `app-name` - Agent application name (required)
+- `user-id` - User identifier
+- `session-id` - Session identifier
+- `mode` - `'widget'` or `'fullscreen'`
+- `response-mode` - `'standard'` or `'stream'`
+
+#### Customization Attributes:
+- `title` - Custom header title (default: "ADK Assistant")
+- `emoji` - Custom header emoji (default: "🤖")
+- `show-settings` - `'true'` or `'false'` to show/hide settings button
+- `floating-button-icon` - `'default'`, `'emoji'`, or custom emoji
+- `floating-button-color` - CSS color or gradient
 
 ## 🎯 Choosing the Right Method
 

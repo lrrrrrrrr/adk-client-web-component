@@ -26,6 +26,11 @@ interface AdkClientProps {
   sessionId?: string;
   mode?: 'fullscreen' | 'widget';
   responseMode?: 'standard' | 'stream';
+  title?: string;
+  emoji?: string;
+  showSettings?: boolean;
+  floatingButtonIcon?: string;
+  floatingButtonColor?: string;
 }
 
 function AdkClientApp({ 
@@ -34,7 +39,12 @@ function AdkClientApp({
   userId, 
   sessionId, 
   mode = 'widget',
-  responseMode = 'stream'
+  responseMode = 'stream',
+  title,
+  emoji,
+  showSettings,
+  floatingButtonIcon,
+  floatingButtonColor
 }: AdkClientProps) {
   const { updateConfig, setMode, isOpen } = useChatStore();
 
@@ -46,13 +56,18 @@ function AdkClientApp({
     if (userId) config.userId = userId;
     if (sessionId) config.sessionId = sessionId;
     if (responseMode) config.responseMode = responseMode;
+    if (title !== undefined) config.title = title;
+    if (emoji !== undefined) config.emoji = emoji;
+    if (showSettings !== undefined) config.showSettings = showSettings;
+    if (floatingButtonIcon !== undefined) config.floatingButtonIcon = floatingButtonIcon;
+    if (floatingButtonColor !== undefined) config.floatingButtonColor = floatingButtonColor;
 
     if (Object.keys(config).length > 0) {
       updateConfig(config);
     }
     
     setMode(mode);
-  }, [apiUrl, appName, userId, sessionId, mode, responseMode, updateConfig, setMode]);
+  }, [apiUrl, appName, userId, sessionId, mode, responseMode, title, emoji, showSettings, floatingButtonIcon, floatingButtonColor, updateConfig, setMode]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -86,7 +101,12 @@ export class AdkClientWebComponent extends HTMLElement {
       'user-id',
       'session-id',
       'mode',
-      'response-mode'
+      'response-mode',
+      'title',
+      'emoji',
+      'show-settings',
+      'floating-button-icon',
+      'floating-button-color'
     ];
   }
 
@@ -711,13 +731,19 @@ export class AdkClientWebComponent extends HTMLElement {
   }
 
   private getProps(): AdkClientProps {
+    const showSettingsAttr = this.getAttribute('show-settings');
     return {
       apiUrl: this.getAttribute('api-url') || undefined,
       appName: this.getAttribute('app-name') || undefined,
       userId: this.getAttribute('user-id') || undefined,
       sessionId: this.getAttribute('session-id') || undefined,
       mode: (this.getAttribute('mode') as 'fullscreen' | 'widget') || 'widget',
-      responseMode: (this.getAttribute('response-mode') as 'standard' | 'stream') || 'stream'
+      responseMode: (this.getAttribute('response-mode') as 'standard' | 'stream') || 'stream',
+      title: this.getAttribute('title') || undefined,
+      emoji: this.getAttribute('emoji') || undefined,
+      showSettings: showSettingsAttr !== null ? showSettingsAttr !== 'false' : undefined,
+      floatingButtonIcon: this.getAttribute('floating-button-icon') || undefined,
+      floatingButtonColor: this.getAttribute('floating-button-color') || undefined
     };
   }
 

@@ -106,7 +106,7 @@ The demos use `"adk-client-web-component": "file:../../"` in their `package.json
 
 When the package is published to npm, users would change this to:
 ```json
-"adk-client-web-component": "^1.0.3"
+"adk-client-web-component": "^1.0.4"
 ```
 
 ### About Embedded Styles
@@ -155,7 +155,7 @@ npm run serve
 ## CDN Demos (Method 2 & 4)
 
 These demos use the published npm package from CDN (unpkg.com):
-- Method 2 uses version 1.0.3 (latest published)
+- Method 2 uses version 1.0.4 (latest published)
 - Method 4 uses latest version automatically
 
 They don't need the local build and work independently.

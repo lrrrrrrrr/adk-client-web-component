@@ -24,6 +24,9 @@ const defaultConfig: ChatConfig = {
   sessionId: env.ADK_SESSION_ID,
   apiBaseUrl: env.ADK_API_URL,
   responseMode: 'stream',
+  title: 'ADK Assistant',
+  emoji: '🤖',
+  showSettings: true,
 };
 
 const initialState: ChatState = {

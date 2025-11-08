@@ -54,7 +54,7 @@ The ADK Client Web Component uses **Shadow DOM with embedded Tailwind CSS styles
 
 The component should have styles embedded. If you're seeing unstyled components:
 
-1. **Check the npm package version**: Use **v1.0.3** or later
+1. **Check the npm package version**: Use **v1.0.4** or later
    ```bash
    npm install adk-client-web-component@latest
    ```

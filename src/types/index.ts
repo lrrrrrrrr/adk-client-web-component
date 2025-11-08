@@ -21,6 +21,11 @@ export interface ChatConfig {
   sessionId: string;
   apiBaseUrl: string;
   responseMode: ResponseMode;
+  title?: string;
+  emoji?: string;
+  showSettings?: boolean;
+  floatingButtonIcon?: 'default' | 'emoji' | string;
+  floatingButtonColor?: string;
 }
 
 export type ChatMode = 'fullscreen' | 'widget';
